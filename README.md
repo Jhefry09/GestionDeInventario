@@ -2,7 +2,7 @@ GESTION DE INVENTARIO PARA UNA EMPRESA DE TECNOLOGIA
 Este proyecto contara con:
  - Base de datos MySQL con las siguiente estructura:
     - categorias:
-        - laptos
+        - laptop
         - Perifericos
         - Memorias Ram
         - Procesador Intel
@@ -16,7 +16,7 @@ Este proyecto contara con:
         - Tarjera Grafica NVIDIA
     
     - sub categorias:
-        - laptos:
+        - laptop:
             - ID
             - Descripcion
             - categoria
@@ -71,6 +71,7 @@ Este proyecto contara con:
             - categoria
             - Precio
             - capacidad
+            - unid_almace GB/TB
             - Tipo:
                 - MVNE
                 - SSD
@@ -105,6 +106,7 @@ Este proyecto contara con:
             - Precio
             - generacion
                 - DDR4
+                - DDR5
             - Tipo:
                 - AMD
                 - INTEL
