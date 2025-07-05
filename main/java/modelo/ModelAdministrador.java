@@ -26,6 +26,7 @@ public Administrador iniciarSesion(String usuario, String clave ) {
 		}
 	} catch (Exception e) {
 	e.printStackTrace();
+	System.out.println("error al en el inicio conector");
 	}return admin;
 }
 }
