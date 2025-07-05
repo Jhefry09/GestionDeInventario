@@ -3,7 +3,7 @@ package utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class MySQLDBconeccion {
+public class MySQLDBConexion {
 public static Connection getConexion() {
 	Connection cn = null;
 	try {
