@@ -1,8 +1,14 @@
 package entidad;
 
 public class Perifericos {
-private int id_perifericos, tipo_perifericos_id, precio_perifericos, cate_id;
+private int id_perifericos, tipo_perifericos_id, precio_perifericos, cate_id, stock_perifericos;
 private String descripc_perifericos;
+public int getStock_perifericos() {
+	return stock_perifericos;
+}
+public void setStock_perifericos(int stock_perifericos) {
+	this.stock_perifericos = stock_perifericos;
+}
 public int getId_perifericos() {
 	return id_perifericos;
 }
