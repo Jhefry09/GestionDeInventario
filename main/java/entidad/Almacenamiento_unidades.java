@@ -1,12 +1,12 @@
 package entidad;
 
 public class Almacenamiento_unidades {
-private int id_unid;
+private Integer id_unid;
 private String nombre_unid;
-public int getId_unid() {
+public Integer getId_unid() {
 	return id_unid;
 }
-public void setId_unid(int id_unid) {
+public void setId_unid(Integer id_unid) {
 	this.id_unid = id_unid;
 }
 public String getNombre_unid() {

@@ -1,12 +1,12 @@
 package entidad;
 
 public class Disipador_tipo {
-	private int  id_disip_tipo;
+	private Integer  id_disip_tipo;
 	private String  tipo_disipador;
-	public int getId_disip_tipo() {
+	public Integer getId_disip_tipo() {
 		return id_disip_tipo;
 	}
-	public void setId_disip_tipo(int id_disip_tipo) {
+	public void setId_disip_tipo(Integer id_disip_tipo) {
 		this.id_disip_tipo = id_disip_tipo;
 	}
 	public String getTipo_disipador() {

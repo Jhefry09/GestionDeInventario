@@ -1,12 +1,12 @@
 package entidad;
 
 public class categoria {
-private int id_categoria;
+private Integer id_categoria;
 private String nom_cate;
-public int getId_categoria() {
+public Integer getId_categoria() {
 	return id_categoria;
 }
-public void setId_categoria(int id_categoria) {
+public void setId_categoria(Integer id_categoria) {
 	this.id_categoria = id_categoria;
 }
 public String getNom_cate() {

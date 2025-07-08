@@ -1,12 +1,12 @@
 package entidad;
 
 public class Grafica_amd_generacion {
-	private int  id_gene_grafi_amd;
+	private Integer  id_gene_grafi_amd;
 	private String  descrip_gene_grafi_amd;
-	public int getId_gene_grafi_amd() {
+	public Integer getId_gene_grafi_amd() {
 		return id_gene_grafi_amd;
 	}
-	public void setId_gene_grafi_amd(int id_gene_grafi_amd) {
+	public void setId_gene_grafi_amd(Integer id_gene_grafi_amd) {
 		this.id_gene_grafi_amd = id_gene_grafi_amd;
 	}
 	public String getDescrip_gene_grafi_amd() {

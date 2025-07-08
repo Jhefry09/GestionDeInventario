@@ -1,12 +1,12 @@
 package entidad;
 
 public class Almacenamiento_tipo {
-private int id_almacenamiento_tipo;
+private Integer id_almacenamiento_tipo;
 private String desc_tipo_almac;
-public int getId_almacenamiento_tipo() {
+public Integer getId_almacenamiento_tipo() {
 	return id_almacenamiento_tipo;
 }
-public void setId_almacenamiento_tipo(int id_almacenamiento_tipo) {
+public void setId_almacenamiento_tipo(Integer id_almacenamiento_tipo) {
 	this.id_almacenamiento_tipo = id_almacenamiento_tipo;
 }
 public String getDesc_tipo_almac() {

@@ -1,12 +1,12 @@
 package entidad;
 
 public class Perifericos_tipo {
-	private int  id_tipo_perifericos;
+	private Integer  id_tipo_perifericos;
 	private String descrip_tipo_perifericos;
-	public int getId_tipo_perifericos() {
+	public Integer getId_tipo_perifericos() {
 		return id_tipo_perifericos;
 	}
-	public void setId_tipo_perifericos(int id_tipo_perifericos) {
+	public void setId_tipo_perifericos(Integer id_tipo_perifericos) {
 		this.id_tipo_perifericos = id_tipo_perifericos;
 	}
 	public String getDescrip_tipo_perifericos() {
