@@ -32,7 +32,7 @@ public class ServletInventario extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<AlmacenamientoDto> info = new ModelInventario().Talmacenamiento();
+		List<AlmacenamientoDto> info = new ModelInventario().tAlmacenamiento();
 		request.setAttribute("datos", info);
 		request.getRequestDispatcher("inventario.jsp").forward(request, response);
 	}
