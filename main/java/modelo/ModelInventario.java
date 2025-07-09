@@ -8,10 +8,11 @@ import java.util.List;
 
 import entidad.Almacenamiento;
 import entidadDto.AlmacenamientoDto;
+import entidadDto.DisipadorDto;
 import utils.MySQLDBConexion;
 
 public class ModelInventario {
-public List<AlmacenamientoDto> Talmacenamiento() {
+public List<AlmacenamientoDto> tAlmacenamiento() {
 	List<AlmacenamientoDto> info = new ArrayList<AlmacenamientoDto>();
 	String sql = "SELECT a.id_almac AS ID, a.descrip_almace As Descripcion, "
 			+ "ac.desc_capac_almac AS Capacidad, au.nombre_unid As Unidades, "
@@ -33,6 +34,33 @@ public List<AlmacenamientoDto> Talmacenamiento() {
 			alm.setPrecio_almace_dto(rs.getInt(6));
 			alm.setStock_almace_dto(rs.getInt(7));
 			info.add(alm);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}return info;
+}
+public List<DisipadorDto> tDisipador() {
+	List<DisipadorDto> info = new ArrayList<DisipadorDto>();
+	String sql="SELECT d.id_disipador AS ID, "
+			+ "d.descrip_disip As Descripcion, "
+			+ "dt.tipo_disipador As Tipo, "
+			+ "d.precio_disipador As Precio, "
+			+ "d.stock_disipador As stock "
+			+ "FROM Disipador d "
+			+ "LEFT Join Disipador_tipo dt on d.tipo_disip_id = dt.id_disip_tipo "
+			+ "order By d.id_disipador";
+	try (Connection con = MySQLDBConexion.getConexion();
+		PreparedStatement pstm = con.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+			){
+		while (rs.next()) {
+			DisipadorDto dspd = new DisipadorDto();
+			dspd.setId_disipador_tdo(rs.getInt(1));
+			dspd.setDes_disipador_tdo(rs.getString(2));
+			dspd.setTipo_disipador_tdo(rs.getString(3));
+			dspd.setPrecio_disipador_tdo(rs.getInt(4));
+			dspd.setStock_disipador_tdo(rs.getInt(5));
+			info.add(dspd);			
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
