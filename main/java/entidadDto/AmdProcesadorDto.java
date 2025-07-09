@@ -2,7 +2,13 @@ package entidadDto;
 
 public class AmdProcesadorDto {
 private Integer id_amd_procesador, precio_amd_procesador, stock_amd_procesador;
-private String gama_amd_procesador, nombre_clave_amd_procesador;
+private String gama_amd_procesador, nombre_clave_amd_procesador, generacion_amd_procesador;
+public String getGeneracion_amd_procesador() {
+	return generacion_amd_procesador;
+}
+public void setGeneracion_amd_procesador(String generacion_amd_procesador) {
+	this.generacion_amd_procesador = generacion_amd_procesador;
+}
 public Integer getId_amd_procesador() {
 	return id_amd_procesador;
 }
