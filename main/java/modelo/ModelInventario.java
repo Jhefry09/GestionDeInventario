@@ -9,6 +9,7 @@ import java.util.List;
 import entidad.Almacenamiento;
 import entidadDto.AlmacenamientoDto;
 import entidadDto.AmdGraficaDto;
+import entidadDto.AmdProcesadorDto;
 import entidadDto.DisipadorDto;
 import entidadDto.FuenteDto;
 import entidadDto.IntelProcesadorDto;
@@ -99,7 +100,6 @@ public List<FuenteDto> tFuente(){
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
-	
 }
 
 public List<IntelProcesadorDto> tIntelProcesador() {
@@ -133,11 +133,38 @@ public List<IntelProcesadorDto> tIntelProcesador() {
 	}return info;
 }
 
-
-public List<AmdGraficaDto> tAmdGrafica(){
-	List<AmdGraficaDto> info = new ArrayList<AmdGraficaDto>();
-	sql
+public List<AmdProcesadorDto> tAmdProcesador() {
+	List<AmdProcesadorDto> info = new ArrayList<AmdProcesadorDto>();
+	String sql = "SELECT pa.id_proce_AMD AS ID, "
+			+ "gp.nom_gama_proc_amd  As Gama, "
+			+ "gpa.nom_gene_proce_amd As Generacion, "
+			+ "gpa.nom_clave_gene_amd  As Nombre_clave, "
+			+ "pa.precio_proce_AMD  As Precio, "
+			+ "pa.stock_proce_amd  As stock "
+			+ "FROM GestionDeInventario.ProcesadorAMD as pa "
+			+ "LEFT Join GestionDeInventario.Gama_proce_amd as gp on pa.gama_AMD_id = gp.id_gama_proce_amd "
+			+ "LEFT Join GestionDeInventario.Generacion_proces_amd as gpa on pa.gener_proce_AMD_id = gpa.id_generacion_proce_amd "
+			+ "order By ID";
+	try (Connection con = MySQLDBConexion.getConexion();
+		 PreparedStatement pstm = con.prepareStatement(sql);
+		 ResultSet rs = pstm.executeQuery();
+		) {
+		while (rs.next()) {
+			AmdProcesadorDto apd = new AmdProcesadorDto();
+			apd.setId_amd_procesador(rs.getInt(1));
+			apd.setGama_amd_procesador(rs.getString(2));
+			apd.setGeneracion_amd_procesador(rs.getString(3));
+			apd.setNombre_clave_amd_procesador(rs.getString(4));
+			apd.setPrecio_amd_procesador(rs.getInt(5));
+			apd.setStock_amd_procesador(rs.getInt(6));
+			info.add(apd);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}return info;
 }
+
+
 
 }
 
