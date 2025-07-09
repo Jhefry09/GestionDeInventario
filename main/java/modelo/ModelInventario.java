@@ -118,11 +118,19 @@ public List<IntelProcesadorDto> tIntelProcesador() {
 		 PreparedStatement pstm = con.prepareStatement(sql);
 		 ResultSet rs = pstm.executeQuery();
 		) {
-		
-		
+		while (rs.next()) {
+			IntelProcesadorDto ipd = new IntelProcesadorDto();
+			ipd.setId_intel(rs.getInt(1));
+			ipd.setGama_intel(rs.getString(2));
+			ipd.setGeneracion_intel(rs.getString(3));
+			ipd.setNombre_clave_intel(rs.getString(4));
+			ipd.setPrecio_intel(rs.getInt(5));
+			ipd.setStock_intel(rs.getInt(6));
+			info.add(ipd);
+		}
 	} catch (Exception e) {
 		e.printStackTrace();
-	}
+	}return info;
 }
 
 
