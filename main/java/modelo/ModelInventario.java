@@ -15,6 +15,7 @@ import entidadDto.IntelProcesadorDto;
 import entidadDto.NvidiaGraficaDto;
 import entidadDto.PerifericosDto;
 import entidadDto.PlacaBaseDto;
+import entidadDto.RamDto;
 import utils.MySQLDBConexion;
 
 public class ModelInventario {
@@ -305,8 +306,36 @@ public List<PlacaBaseDto> tPlacaBase() {
 	}return info;
 }
 
-
+public List<RamDto> tRam() {
+	List<RamDto> info = new ArrayList<RamDto>();
+	String sql = "SELECT r.id_ram AS ID, "
+			+ "r.descrip_ram As Descripcion, "
+			+ "rc.capacidad_gb AS Capacidad_GB, "
+			+ "rg.gener_ram_nom AS Ram_Generacion, "
+			+ "r.precio_ram As Precio,"
+			+ "r.stock_ram As stock "
+			+ "FROM GestionDeInventario.Ram as r "
+			+ "LEFT Join GestionDeInventario.Ram_generacion as rg "
+			+ "on r.genera_ram_id = rg.id_gener_ram_nom "
+			+ "LEFT Join GestionDeInventario.Ram_capacidad as rc "
+			+ "on r.capaci_ram_id = rc.id_ram_capac "
+			+ "order By ID";
+	try (Connection con = MySQLDBConexion.getConexion();
+		 PreparedStatement pstm = con.prepareStatement(sql);
+		 ResultSet rs = pstm.executeQuery();
+		) {
+		while (rs.next()) {
+			RamDto rd = new RamDto();
+			rd.setId_ram(rs.getInt(1));
+			rd.setDescripcion_ram(rs.getString(2));
+			rd.setCapacidad_ram(rs.getInt(3));
+			rd.setRam_generacion_ram(rs.getString(4));
+			rd.setPrecio_ram(rs.getInt(5));
+			rd.setStock_ram(rs.getInt(6));
+			info.add(rd);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}return info;
 }
-
-
-
+}
