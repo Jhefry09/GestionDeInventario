@@ -164,7 +164,36 @@ public List<AmdProcesadorDto> tAmdProcesador() {
 	}return info;
 }
 
-
+public List<AmdGraficaDto> tAmdGrafica(){
+	List<AmdGraficaDto> info = new ArrayList<AmdGraficaDto>();
+	String sql = "SELECT ga.id_grafica_amd AS ID, "
+			+ "ga.descripcion_grafi_amd As Descripcion, "
+			+ "gg.gama_descrip As Gama,"
+			+ "gag.descrip_gene_grafi_amd As Generacion, "
+			+ "ga.precio_grafi_amd As Precio, "
+			+ "ga.stock_grafi_amd As stock "
+			+ "FROM GestionDeInventario.Grafica_amd as ga "
+			+ "LEFT Join GestionDeInventario.Grafica_amd_gama as gg  on ga.gama_grafi_amd_id = gg.id_gama_amd_grafica "
+			+ "LEFT Join GestionDeInventario.Grafica_amd_generacion as gag  on ga.generacion_grafi_amd_id = gag.id_gene_grafi_amd "
+			+ "order By ID";
+	try (Connection con = MySQLDBConexion.getConexion();
+		 PreparedStatement pstm = con.prepareStatement(sql);
+		 ResultSet rs = pstm.executeQuery();
+		) {
+		while (rs.next()) {
+			AmdGraficaDto agd = new AmdGraficaDto();
+			agd.setId_amd_grafica(rs.getInt(1));
+			agd.setDescripcion_amd_grafica(rs.getString(2));
+			agd.setGama_amd_grafica(rs.getInt(3));
+			agd.setGeneracion_amd_grafica(rs.getString(4));
+			agd.setPrecio_amd_grafica(rs.getInt(5));
+			agd.setPrecio_amd_grafica(rs.getInt(6));
+			info.add(agd);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}return info;
+}
 
 }
 
