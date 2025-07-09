@@ -13,6 +13,8 @@ import entidadDto.DisipadorDto;
 import entidadDto.FuenteDto;
 import entidadDto.IntelProcesadorDto;
 import entidadDto.NvidiaGraficaDto;
+import entidadDto.PerifericosDto;
+import entidadDto.PlacaBaseDto;
 import utils.MySQLDBConexion;
 
 public class ModelInventario {
@@ -244,6 +246,65 @@ public List<NvidiaGraficaDto> tNvidiaGrafica() {
 		e.printStackTrace();
 	}return info;
 }
+public List<PerifericosDto> tPerifericos() {
+	List<PerifericosDto> info = new ArrayList<PerifericosDto>();
+	String sql = "SELECT p.id_perifericos AS ID, "
+			+ "p.descripc_perifericos As Descripcion, "
+			+ "pt.descrip_tipo_perifericos As Tipo, "
+			+ "p.precio_perifericos As Precio, "
+			+ "p.stock_perifericos As stock "
+			+ "FROM GestionDeInventario.Perifericos as p "
+			+ "LEFT Join GestionDeInventario.Perifericos_tipo as pt "
+			+ "on p.tipo_perifericos_id = pt.id_tipo_perifericos "
+			+ "order By ID";
+	try (Connection con = MySQLDBConexion.getConexion();
+		 PreparedStatement pstm = con.prepareStatement(sql);
+		 ResultSet rs = pstm.executeQuery();
+		) {
+		while (rs.next()) {
+			PerifericosDto pd = new PerifericosDto();
+			pd.setId_perifericos(rs.getInt(1));
+			pd.setDescripcion_perifericos(rs.getString(2));
+			pd.setTipo_perifericos(rs.getString(3));
+			pd.setPrecio_perifericos(rs.getInt(4));
+			pd.setStock_perifericos(rs.getInt(5));
+			info.add(pd);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}return info;
+}
+
+public List<PlacaBaseDto> tPlacaBase() {
+	List<PlacaBaseDto> info = new ArrayList<PlacaBaseDto>();
+	String sql = "SELECT pb.id_placa_base AS ID, "
+			+ "pb.descri_placa_base As Descripcion, "
+			+ "rg.gener_ram_nom AS \"Ram Generacion\", "
+			+ "pb.precio_placa_base As Precio, "
+			+ "pb.stock_placa_base As stock "
+			+ "FROM GestionDeInventario.PlacaBase as pb "
+			+ "LEFT Join GestionDeInventario.Ram_generacion as rg "
+			+ "on pb.gene_ram_id = rg.id_gener_ram_nom "
+			+ "order By ID";
+	try (Connection con = MySQLDBConexion.getConexion();
+		 PreparedStatement pstm = con.prepareStatement(sql);
+		 ResultSet rs = pstm.executeQuery();
+		) {
+		while (rs.next()) {
+			PlacaBaseDto pbd = new PlacaBaseDto();
+			pbd.setId_placa_base(rs.getInt(1));
+			pbd.setDescripcion_placa_base(rs.getString(2));
+			pbd.setRam_generacion_placa_base(rs.getString(3));
+			pbd.setPrecio_placa_base(rs.getInt(4));
+			pbd.setStock_placa_base(rs.getInt(5));
+			info.add(pbd);
+		}
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}return info;
+}
+
 
 }
 
