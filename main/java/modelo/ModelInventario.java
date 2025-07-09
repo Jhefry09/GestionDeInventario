@@ -8,7 +8,10 @@ import java.util.List;
 
 import entidad.Almacenamiento;
 import entidadDto.AlmacenamientoDto;
+import entidadDto.AmdGraficaDto;
 import entidadDto.DisipadorDto;
+import entidadDto.FuenteDto;
+import entidadDto.IntelProcesadorDto;
 import utils.MySQLDBConexion;
 
 public class ModelInventario {
@@ -23,7 +26,8 @@ public List<AlmacenamientoDto> tAlmacenamiento() {
 			+ "LEFT Join Almacenamiento_unidades au on ac.uni_almac_id = au.id_unid order By a.id_almac";
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql);
-		ResultSet rs = pstm.executeQuery()){
+		ResultSet rs = pstm.executeQuery();
+		){
 		while (rs.next()) {
 			AlmacenamientoDto alm = new AlmacenamientoDto();
 			alm.setId_almace_dto(rs.getInt(1));
@@ -66,4 +70,68 @@ public List<DisipadorDto> tDisipador() {
 		e.printStackTrace();
 	}return info;
 }
+public List<FuenteDto> tFuente(){
+	List<FuenteDto> info = new ArrayList<FuenteDto>();
+	String sql = "SELECT f.id_fuente AS ID, "
+			+ "f.descripcion_fuente As Descripcion, "
+			+ "fc.watts As watts, "
+			+ "fcc.certificacion As Certificacion, "
+			+ "f.precio_fuente As Precio, "
+			+ "f.Stock_fuente As stock "
+			+ "FROM GestionDeInventario.Fuente_de_Energia f "
+			+ "LEFT Join GestionDeInventario.Fuente_capacidad fc on f.capacidad_fuente_id = fc.id_capacidad_fuente "
+			+ "LEFT Join GestionDeInventario.Fuente_certificacion fcc on f.certificado_fuente_id = fcc.id_fuente_certificacion "
+			+ "order By ID";
+	try(Connection con = MySQLDBConexion.getConexion();
+		PreparedStatement pstm = con.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		) {
+		while (rs.next()) {
+			FuenteDto fetd = new FuenteDto();
+			fetd.setId_fuente(rs.getInt(1));
+			fetd.setDescripcion_fuente(rs.getString(2));
+			fetd.setWatts_fuente(rs.getInt(3));
+			fetd.setCertificacion_fuente(rs.getString(4));
+			fetd.setPrecio_fuente(rs.getInt(5));
+			fetd.setStock_fuente(rs.getInt(6));
+			info.add(fetd);
+		}		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}return info;
+	
 }
+
+public List<IntelProcesadorDto> tIntelProcesador() {
+	List<IntelProcesadorDto> info = new ArrayList<IntelProcesadorDto>();
+	String sql = "SELECT pi.id_proce_intel AS ID, "
+			+ "gi.nom_gama_intel As Gama, "
+			+ "gpi.nombre_gene_intel As Generacion, "
+			+ "gpi.nombre_clave_gene_intel As Nombre_clave, "
+			+ "pi.precio_proce_intel As Precio, "
+			+ "pi.stock_proc_intel As stock "
+			+ "FROM GestionDeInventario.ProcesadorIntel as pi "
+			+ "LEFT Join GestionDeInventario.Gama_intel as gi  on pi.gama_intel_id = gi.id_gama_intel "
+			+ "LEFT Join GestionDeInventario.Generacion_procs_intel as gpi on pi.gener_proce_intel_id = gpi.id_gene_proc_intel "
+			+ "order By ID";
+	try (Connection con = MySQLDBConexion.getConexion();
+		 PreparedStatement pstm = con.prepareStatement(sql);
+		 ResultSet rs = pstm.executeQuery();
+		) {
+		
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
+
+
+public List<AmdGraficaDto> tAmdGrafica(){
+	List<AmdGraficaDto> info = new ArrayList<AmdGraficaDto>();
+	sql
+}
+
+}
+
+
+
