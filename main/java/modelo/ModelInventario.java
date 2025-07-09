@@ -13,6 +13,7 @@ import entidadDto.AmdProcesadorDto;
 import entidadDto.DisipadorDto;
 import entidadDto.FuenteDto;
 import entidadDto.IntelProcesadorDto;
+import entidadDto.NvidiaGraficaDto;
 import utils.MySQLDBConexion;
 
 public class ModelInventario {
@@ -189,6 +190,37 @@ public List<AmdGraficaDto> tAmdGrafica(){
 			agd.setPrecio_amd_grafica(rs.getInt(5));
 			agd.setPrecio_amd_grafica(rs.getInt(6));
 			info.add(agd);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}return info;
+}
+
+public List<NvidiaGraficaDto> tNvidiaGrafica() {
+	List<NvidiaGraficaDto> info = new ArrayList<NvidiaGraficaDto>();
+	String sql = "SELECT gn.id_grafica_nvidia AS ID, "
+			+ "gn.descripcion_grafi_nvidia As Descripcion, "
+			+ "gg.descrip_gene_grafi_nvidia As Generacion, "
+			+ "gng.gama_descrip_nvidia As Gama, "
+			+ "gn.precio_grafi_nvidia As Precio, "
+			+ "gn.stock_grafi_nvidia As stock "
+			+ "FROM GestionDeInventario.Grafica_nvidia as gn "
+			+ "LEFT Join GestionDeInventario.Grafica_nvidia_gama as gng on gn.gama_grafi_nvidia_id = gng.id_gama_nvidia_grafica "
+			+ "LEFT Join GestionDeInventario.Grafica_nvidia_generacion as gg on gn.generacion_grafi_nvidia_id = gg.id_gene_grafi_nvidia "
+			+ "order By ID";
+	try (Connection con = MySQLDBConexion.getConexion();
+		 PreparedStatement pstm = con.prepareStatement(sql);
+		 ResultSet rs = pstm.executeQuery();
+		) {
+		while (rs.next()) {
+			NvidiaGraficaDto ngd = new NvidiaGraficaDto();
+			ngd.setId_nvidia_grafica(rs.getInt(1));
+			ngd.setDescripcion_nvidia_grafica(rs.getString(2));
+			ngd.setGeneracion_nvidia_grafica(rs.getInt(3));
+			ngd.setGama_nvidia_grafica(rs.getInt(4));
+			ngd.setPrecio_nvidia_grafica(rs.getInt(5));
+			ngd.setStock_nvidia_grafica(rs.getInt(6));
+			info.add(ngd);
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
