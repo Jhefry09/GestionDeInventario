@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import entidad.Almacenamiento;
 import entidadDto.AlmacenamientoDto;
 import entidadDto.AmdGraficaDto;
 import entidadDto.AmdProcesadorDto;
@@ -19,13 +18,21 @@ import utils.MySQLDBConexion;
 public class ModelInventario {
 public List<AlmacenamientoDto> tAlmacenamiento() {
 	List<AlmacenamientoDto> info = new ArrayList<AlmacenamientoDto>();
-	String sql = "SELECT a.id_almac AS ID, a.descrip_almace As Descripcion, "
-			+ "ac.desc_capac_almac AS Capacidad, au.nombre_unid As Unidades, "
-			+ "at.desc_tipo_almac As Tipo,a.precio_almac As Precio, a.stock_almace As stock "
-			+ "FROM Almacenamiento a "
-			+ "LEFT Join Almacenamiento_capacidad ac on a.capac_almac_id = ac.id_capaci_almac "
-			+ "LEFT Join Almacenamiento_tipo at on a.tipo_almac_id = at.id_almacenamiento_tipo "
-			+ "LEFT Join Almacenamiento_unidades au on ac.uni_almac_id = au.id_unid order By a.id_almac";
+	String sql = "SELECT a.id_almac AS ID, "
+			+ "a.descrip_almace As Descripcion, "
+			+ "ac.desc_capac_almac AS Capacidad, "
+			+ "au.nombre_unid As Unidades, "
+			+ "at.desc_tipo_almac As Tipo, "
+			+ "a.precio_almac As Precio, "
+			+ "a.stock_almace As stock "
+			+ "FROM Almacenamiento As a "
+			+ "LEFT Join Almacenamiento_capacidad As ac "
+			+ "on a.capac_almac_id = ac.id_capaci_almac "
+			+ "LEFT Join Almacenamiento_tipo As at "
+			+ "on a.tipo_almac_id = at.id_almacenamiento_tipo "
+			+ "LEFT Join Almacenamiento_unidades As au "
+			+ "on ac.uni_almac_id = au.id_unid "
+			+ "order By ID";
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
@@ -52,9 +59,10 @@ public List<DisipadorDto> tDisipador() {
 			+ "dt.tipo_disipador As Tipo, "
 			+ "d.precio_disipador As Precio, "
 			+ "d.stock_disipador As stock "
-			+ "FROM Disipador d "
-			+ "LEFT Join Disipador_tipo dt on d.tipo_disip_id = dt.id_disip_tipo "
-			+ "order By d.id_disipador";
+			+ "FROM Disipador As d "
+			+ "LEFT Join Disipador_tipo As dt "
+			+ "on d.tipo_disip_id = dt.id_disip_tipo "
+			+ "order By ID";
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
@@ -80,9 +88,11 @@ public List<FuenteDto> tFuente(){
 			+ "fcc.certificacion As Certificacion, "
 			+ "f.precio_fuente As Precio, "
 			+ "f.Stock_fuente As stock "
-			+ "FROM GestionDeInventario.Fuente_de_Energia f "
-			+ "LEFT Join GestionDeInventario.Fuente_capacidad fc on f.capacidad_fuente_id = fc.id_capacidad_fuente "
-			+ "LEFT Join GestionDeInventario.Fuente_certificacion fcc on f.certificado_fuente_id = fcc.id_fuente_certificacion "
+			+ "FROM GestionDeInventario.Fuente_de_Energia As f "
+			+ "LEFT Join GestionDeInventario.Fuente_capacidad As fc "
+			+ "on f.capacidad_fuente_id = fc.id_capacidad_fuente "
+			+ "LEFT Join GestionDeInventario.Fuente_certificacion As fcc "
+			+ "on f.certificado_fuente_id = fcc.id_fuente_certificacion "
 			+ "order By ID";
 	try(Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql);
@@ -112,8 +122,10 @@ public List<IntelProcesadorDto> tIntelProcesador() {
 			+ "pi.precio_proce_intel As Precio, "
 			+ "pi.stock_proc_intel As stock "
 			+ "FROM GestionDeInventario.ProcesadorIntel as pi "
-			+ "LEFT Join GestionDeInventario.Gama_intel as gi  on pi.gama_intel_id = gi.id_gama_intel "
-			+ "LEFT Join GestionDeInventario.Generacion_procs_intel as gpi on pi.gener_proce_intel_id = gpi.id_gene_proc_intel "
+			+ "LEFT Join GestionDeInventario.Gama_intel as gi "
+			+ "on pi.gama_intel_id = gi.id_gama_intel "
+			+ "LEFT Join GestionDeInventario.Generacion_procs_intel as gpi "
+			+ "on pi.gener_proce_intel_id = gpi.id_gene_proc_intel "
 			+ "order By ID";
 	try (Connection con = MySQLDBConexion.getConexion();
 		 PreparedStatement pstm = con.prepareStatement(sql);
@@ -143,8 +155,10 @@ public List<AmdProcesadorDto> tAmdProcesador() {
 			+ "pa.precio_proce_AMD  As Precio, "
 			+ "pa.stock_proce_amd  As stock "
 			+ "FROM GestionDeInventario.ProcesadorAMD as pa "
-			+ "LEFT Join GestionDeInventario.Gama_proce_amd as gp on pa.gama_AMD_id = gp.id_gama_proce_amd "
-			+ "LEFT Join GestionDeInventario.Generacion_proces_amd as gpa on pa.gener_proce_AMD_id = gpa.id_generacion_proce_amd "
+			+ "LEFT Join GestionDeInventario.Gama_proce_amd as gp "
+			+ "on pa.gama_AMD_id = gp.id_gama_proce_amd "
+			+ "LEFT Join GestionDeInventario.Generacion_proces_amd as gpa "
+			+ "on pa.gener_proce_AMD_id = gpa.id_generacion_proce_amd "
 			+ "order By ID";
 	try (Connection con = MySQLDBConexion.getConexion();
 		 PreparedStatement pstm = con.prepareStatement(sql);
@@ -174,8 +188,10 @@ public List<AmdGraficaDto> tAmdGrafica(){
 			+ "ga.precio_grafi_amd As Precio, "
 			+ "ga.stock_grafi_amd As stock "
 			+ "FROM GestionDeInventario.Grafica_amd as ga "
-			+ "LEFT Join GestionDeInventario.Grafica_amd_gama as gg  on ga.gama_grafi_amd_id = gg.id_gama_amd_grafica "
-			+ "LEFT Join GestionDeInventario.Grafica_amd_generacion as gag  on ga.generacion_grafi_amd_id = gag.id_gene_grafi_amd "
+			+ "LEFT Join GestionDeInventario.Grafica_amd_gama as gg "
+			+ "on ga.gama_grafi_amd_id = gg.id_gama_amd_grafica "
+			+ "LEFT Join GestionDeInventario.Grafica_amd_generacion as gag "
+			+ "on ga.generacion_grafi_amd_id = gag.id_gene_grafi_amd "
 			+ "order By ID";
 	try (Connection con = MySQLDBConexion.getConexion();
 		 PreparedStatement pstm = con.prepareStatement(sql);
@@ -205,8 +221,10 @@ public List<NvidiaGraficaDto> tNvidiaGrafica() {
 			+ "gn.precio_grafi_nvidia As Precio, "
 			+ "gn.stock_grafi_nvidia As stock "
 			+ "FROM GestionDeInventario.Grafica_nvidia as gn "
-			+ "LEFT Join GestionDeInventario.Grafica_nvidia_gama as gng on gn.gama_grafi_nvidia_id = gng.id_gama_nvidia_grafica "
-			+ "LEFT Join GestionDeInventario.Grafica_nvidia_generacion as gg on gn.generacion_grafi_nvidia_id = gg.id_gene_grafi_nvidia "
+			+ "LEFT Join GestionDeInventario.Grafica_nvidia_gama as gng "
+			+ "on gn.gama_grafi_nvidia_id = gng.id_gama_nvidia_grafica "
+			+ "LEFT Join GestionDeInventario.Grafica_nvidia_generacion as gg "
+			+ "on gn.generacion_grafi_nvidia_id = gg.id_gene_grafi_nvidia "
 			+ "order By ID";
 	try (Connection con = MySQLDBConexion.getConexion();
 		 PreparedStatement pstm = con.prepareStatement(sql);
