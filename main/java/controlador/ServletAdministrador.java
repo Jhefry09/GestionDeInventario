@@ -39,8 +39,8 @@ public class ServletAdministrador extends HttpServlet {
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		System.out.println("fallo contraseña");
 	}else {
-		response.sendRedirect("ServletInventario");
 		System.out.println("Inicio de sesion correcto");
+		response.sendRedirect("ServletInventario?seleccion=Listar&inventario=Almacenamiento");
 	}
 	}
 }
