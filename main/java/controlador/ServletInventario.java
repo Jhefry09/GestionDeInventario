@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidadDto.AlmacenamientoDto;
 import modelo.ModelInventario;
 
 /**
@@ -17,7 +16,7 @@ import modelo.ModelInventario;
  */
 @WebServlet("/ServletInventario")
 public class ServletInventario extends HttpServlet {
-	AlmacenamientoDto almd = new AlmacenamientoDto();
+
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -31,9 +30,78 @@ public class ServletInventario extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<AlmacenamientoDto> info = new ModelInventario().tAlmacenamiento();
-		request.setAttribute("datos", info);
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    String selec = request.getParameter("seleccion");
+    switch (selec) {
+	case "Listar":
+		Listar(request, response);
+		break;
+	case "buscarcodi":
+		//if (dato == null || dato.trim().isEmpty()) {
+		//	Listar(request, response);
+		//} else {
+			//buscar(request, response);
+		break;
+	case "agregar":
+		//agregar(request, response);
+		break;
+	case "editar":
+		//editar(request, response);
+		break;
+	case "borrar":
+		//borrar(request, response);
+		break;
+	case "btnEditar":
+		//btnEditar(request, response);
+		break;
+	}
+    }	
+	protected void Listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String inven = request.getParameter("inventario");
+		ModelInventario inventario = new ModelInventario();
+		switch (inven) {
+		case "Almacenamiento":
+			request.setAttribute("selec", inven);
+			request.setAttribute("datos", inventario.tAlmacenamiento());
+			break;
+		case "AmdGra":
+			request.setAttribute("selec", inven);
+			request.setAttribute("datos", inventario.tAmdGrafica());
+			break;
+		case "AmdPro":
+			request.setAttribute("selec", inven);
+			request.setAttribute("datos", inventario.tAmdProcesador());
+			break;
+		case "Disipador":
+			request.setAttribute("selec", inven);
+			request.setAttribute("datos", inventario.tDisipador());
+			break;
+		case "Fuente":
+			request.setAttribute("selec", inven);
+			request.setAttribute("datos", inventario.tFuente());
+			break;
+		case "Intel":
+			request.setAttribute("selec", inven);
+			request.setAttribute("datos", inventario.tIntelProcesador());
+			break;
+		case "Nvidia":
+			request.setAttribute("selec", inven);
+			request.setAttribute("datos", inventario.tNvidiaGrafica());
+			break;
+		case "Perifericos":
+			request.setAttribute("selec", inven);
+			request.setAttribute("datos", inventario.tPerifericos());
+			break;
+		case "PlacaBase":
+			request.setAttribute("selec", inven);
+			request.setAttribute("datos", inventario.tPlacaBase());
+			break;
+		case "Ram":
+			request.setAttribute("selec", inven);
+			request.setAttribute("datos", inventario.tRam());
+			break;
+		}
 		request.getRequestDispatcher("inventario.jsp").forward(request, response);
 	}
+	
 }
