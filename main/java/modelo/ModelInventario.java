@@ -207,7 +207,7 @@ public List<AmdGraficaDto> tAmdGrafica(){
 			agd.setGama_amd_grafica(rs.getInt(3));
 			agd.setGeneracion_amd_grafica(rs.getString(4));
 			agd.setPrecio_amd_grafica(rs.getInt(5));
-			agd.setPrecio_amd_grafica(rs.getInt(6));
+			agd.setStock_amd_grafica(rs.getInt(6));
 			info.add(agd);
 		}
 	} catch (Exception e) {
