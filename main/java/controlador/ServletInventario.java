@@ -60,44 +60,54 @@ public class ServletInventario extends HttpServlet {
 		String inven = request.getParameter("inventario");
 		ModelInventario inventario = new ModelInventario();
 		switch (inven) {
-		case "Almacenamiento":
+		case "ALMACENAMIENTO":
 			request.setAttribute("selec", inven);
+			request.setAttribute("nombre", "ALMACENAMIENTO");
 			request.setAttribute("datos", inventario.tAlmacenamiento());
 			break;
 		case "AmdGra":
 			request.setAttribute("selec", inven);
+			request.setAttribute("nombre", "GRAFICAS AMD");
 			request.setAttribute("datos", inventario.tAmdGrafica());
 			break;
 		case "AmdPro":
 			request.setAttribute("selec", inven);
+			request.setAttribute("nombre", "PROCESADORES AMD");
 			request.setAttribute("datos", inventario.tAmdProcesador());
 			break;
-		case "Disipador":
+		case "DISIPADORES":
 			request.setAttribute("selec", inven);
+			request.setAttribute("nombre", "DISIPADORES");
 			request.setAttribute("datos", inventario.tDisipador());
 			break;
-		case "Fuente":
+		case "FUENTES":
 			request.setAttribute("selec", inven);
+			request.setAttribute("nombre", "FUENTES DE ENERGIA");
 			request.setAttribute("datos", inventario.tFuente());
 			break;
 		case "Intel":
 			request.setAttribute("selec", inven);
+			request.setAttribute("nombre", "PROCESADORES INTEL");
 			request.setAttribute("datos", inventario.tIntelProcesador());
 			break;
 		case "Nvidia":
 			request.setAttribute("selec", inven);
+			request.setAttribute("nombre", "GRAFICAS NVIDIA");
 			request.setAttribute("datos", inventario.tNvidiaGrafica());
 			break;
-		case "Perifericos":
+		case "PERIFERICOS":
 			request.setAttribute("selec", inven);
+			request.setAttribute("nombre", "PERIFERICOS");
 			request.setAttribute("datos", inventario.tPerifericos());
 			break;
 		case "PlacaBase":
 			request.setAttribute("selec", inven);
+			request.setAttribute("nombre", "PLACAS BASE");
 			request.setAttribute("datos", inventario.tPlacaBase());
 			break;
-		case "Ram":
+		case "RAM":
 			request.setAttribute("selec", inven);
+			request.setAttribute("nombre", "RAM");
 			request.setAttribute("datos", inventario.tRam());
 			break;
 		}
