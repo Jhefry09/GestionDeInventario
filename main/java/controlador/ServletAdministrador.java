@@ -40,7 +40,7 @@ public class ServletAdministrador extends HttpServlet {
 		System.out.println("fallo contraseña");
 	}else {
 		System.out.println("Inicio de sesion correcto");
-		response.sendRedirect("ServletInventario?seleccion=Listar&inventario=Almacenamiento");
+		response.sendRedirect("ServletInventario?seleccion=Listar&inventario=ALMACENAMIENTO");
 	}
 	}
 }
