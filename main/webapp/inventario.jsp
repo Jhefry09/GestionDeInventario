@@ -36,14 +36,14 @@
 	String seleccion = (String) request.getAttribute("selec");
 	String nom = (String) request.getAttribute("nombre");
 	%>
-	<div class="row d-flex">
-			<div class="col " >
-						<form action="ServletInventario" id="selector" class=" d-flex gap-2 align-items-center">
+	<div class="row d-flex align-items-center justify-content-center mx-2">
+			<div class="col" >
+						<form action="ServletInventario" id="selector" class=" d-flex align-items-center">
 							<input type="hidden" name="seleccion" value="Listar"> 
 							<select
 								name="inventario"
 								id="formulario"
-								class="form-select form-select-lg text-center bg-dark text-light border-3"
+								class="form-select form-select-lg text-center fs-4 fw-bolder bg-dark text-light border-3"
 								onchange="document.getElementById('selector').submit();">
 								<option value="<%=seleccion%>"><%=nom%></option>
 								<option value="ALMACENAMIENTO">ALMACENAMIENTO</option>
@@ -59,6 +59,18 @@
 							</select>
 						</form>
 						</div>
+					<div class="col">
+					<form action="buscar" class=" d-flex gap-2 align-items-center">
+					<input type="hidden" name="seleccion" value="buscar">
+					<select class="form-select text-center fw-bolder bg-dark text-light border-3">
+					<option>ID</option>
+					<option>NOMBRE</option>
+					<option>PRECIO</option>
+					</select>
+					<input type="text" name="txtBusqueda" placeholder="DATOS A BUSCAR" class="form-control form-sm  text-center bg-dark text-light border-3">
+					<button type="submit" class="btn btn-outline-light btn-sm fw-bolder border-4 d-flex align-items-center">BUSCAR</button>
+					</form>
+					</div>
 	</div>
 		<table class="table table-dark table-striped table-hover table-responsive table-bordered text-center animate__animated animate__fadeInDown animate__delay-0.5s table-responsive">
 				<%
