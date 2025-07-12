@@ -36,31 +36,30 @@
 	String seleccion = (String) request.getAttribute("selec");
 	String nom = (String) request.getAttribute("nombre");
 	%>
-	<table  class="table table-dark table-responsive table-striped table-hover ">
-		<thead>
-			<tr class=" text-center fs2 align-middle align-items-center">
-				<th>
-				<form action="ServletInventario">
-				<input type="hidden" name="seleccion" value="Listar">
-				<select name="inventario" class="form-select form-select-lg text-center bg-dark text-light border-3">
-				<option value="<%=seleccion%>"><%=nom %></option>
-				<option value="ALMACENAMIENTO">ALMACENAMIENTO</option>
-				<option value="DISIPADORES">DISIPADORES</option>
-				<option value="FUENTES">FUENTES DE ENERGIA</option>
-				<option value="Intel">PROCESADORES INTEL</option>
-				<option value="AmdPro">PROCESADORES AMD</option>
-				<option value="AmdGra">GRAFICAS AMD</option>
-				<option value="Nvidia">GRAFICAS NVIDIA</option>
-				<option value="PERIFERICOS">PERIFERICOS</option>
-				<option value="PlacaBase">PLACAS BASE</option>
-				<option value="RAM">RAM</option>
-				</select>
-				<button type="submit" class="btn btn-outline-light btn-md fw-bolder border-4 d-flex align-items-center">CARGAR</button>
-				</form>
-			<th>
-			</tr>
-		</thead>
-		</table>
+	<div class="row d-flex">
+			<div class="col " >
+						<form action="ServletInventario" id="selector" class=" d-flex gap-2 align-items-center">
+							<input type="hidden" name="seleccion" value="Listar"> 
+							<select
+								name="inventario"
+								id="formulario"
+								class="form-select form-select-lg text-center bg-dark text-light border-3"
+								onchange="document.getElementById('selector').submit();">
+								<option value="<%=seleccion%>"><%=nom%></option>
+								<option value="ALMACENAMIENTO">ALMACENAMIENTO</option>
+								<option value="DISIPADORES">DISIPADORES</option>
+								<option value="FUENTES">FUENTES DE ENERGIA</option>
+								<option value="Intel">PROCESADORES INTEL</option>
+								<option value="AmdPro">PROCESADORES AMD</option>
+								<option value="AmdGra">GRAFICAS AMD</option>
+								<option value="Nvidia">GRAFICAS NVIDIA</option>
+								<option value="PERIFERICOS">PERIFERICOS</option>
+								<option value="PlacaBase">PLACAS BASE</option>
+								<option value="RAM">RAM</option>
+							</select>
+						</form>
+						</div>
+	</div>
 		<table class="table table-dark table-striped table-hover table-responsive table-bordered text-center animate__animated animate__fadeInDown animate__delay-0.5s table-responsive">
 				<%
 				switch (seleccion){
