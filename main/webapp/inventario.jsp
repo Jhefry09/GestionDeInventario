@@ -35,43 +35,47 @@
 	<%
 	String seleccion = (String) request.getAttribute("selec");
 	String nom = (String) request.getAttribute("nombre");
+	String tipoSelec = (String) request.getAttribute("tipoSelec");
+	String nombreSelec = (String) request.getAttribute("nombreSelec");
 	%>
 	<div class="row d-flex align-items-center justify-content-center mx-2">
-			<div class="col" >
-						<form action="ServletInventario" id="selector" class=" d-flex align-items-center">
-							<input type="hidden" name="seleccion" value="Listar"> 
-							<select
-								name="inventario"
-								id="formulario"
-								class="form-select form-select-lg text-center fs-4 fw-bolder bg-dark text-light border-3"
-								onchange="document.getElementById('selector').submit();">
-								<option value="<%=seleccion%>"><%=nom%></option>
-								<option value="ALMACENAMIENTO">ALMACENAMIENTO</option>
-								<option value="DISIPADORES">DISIPADORES</option>
-								<option value="FUENTES">FUENTES DE ENERGIA</option>
-								<option value="Intel">PROCESADORES INTEL</option>
-								<option value="AmdPro">PROCESADORES AMD</option>
-								<option value="AmdGra">GRAFICAS AMD</option>
-								<option value="Nvidia">GRAFICAS NVIDIA</option>
-								<option value="PERIFERICOS">PERIFERICOS</option>
-								<option value="PlacaBase">PLACAS BASE</option>
-								<option value="RAM">RAM</option>
-							</select>
-						</form>
-						</div>
-					<div class="col">
-					<form action="buscar" class=" d-flex gap-2 align-items-center">
-					<input type="hidden" name="seleccion" value="buscar">
-					<select class="form-select text-center fw-bolder bg-dark text-light border-3">
-					<option>ID</option>
-					<option>NOMBRE</option>
-					<option>PRECIO</option>
+			<div class="col">
+				<form action="ServletInventario" id="selector"
+					class=" d-flex align-items-center">
+					<input type="hidden" name="seleccion" value="Listar"> <select
+						name="inventario" id="formulario"
+						class="form-select form-select-lg text-center fs-4 fw-bolder bg-dark text-light border-3"
+						onchange="document.getElementById('selector').submit();">
+						<option value="<%=seleccion%>"><%=nom%></option>
+						<option value="ALMACENAMIENTO">ALMACENAMIENTO</option>
+						<option value="DISIPADORES">DISIPADORES</option>
+						<option value="FUENTES">FUENTES DE ENERGIA</option>
+						<option value="Intel">PROCESADORES INTEL</option>
+						<option value="AmdPro">PROCESADORES AMD</option>
+						<option value="AmdGra">GRAFICAS AMD</option>
+						<option value="Nvidia">GRAFICAS NVIDIA</option>
+						<option value="PERIFERICOS">PERIFERICOS</option>
+						<option value="PlacaBase">PLACAS BASE</option>
+						<option value="RAM">RAM</option>
 					</select>
-					<input type="text" name="txtBusqueda" placeholder="DATOS A BUSCAR" class="form-control form-sm  text-center bg-dark text-light border-3">
-					<button type="submit" class="btn btn-outline-light btn-sm fw-bolder border-4 d-flex align-items-center">BUSCAR</button>
-					</form>
-					</div>
-	</div>
+				</form>
+			</div>
+			<div class="col">
+				<form action="ServletInventario" class=" d-flex gap-2 align-items-center">
+					<input type="hidden" name="seleccion" value="Buscar">
+					<input type="hidden" name="inventario" value="<%=seleccion%>"> <select
+						name="tipoBuscar" class="form-select text-center fw-bolder bg-dark text-light border-3">
+						<option value="<%=tipoSelec %>"><%= nombreSelec%></option>
+						<option value="nom">DESCRIPCION</option>
+						<option value="id">ID</option>
+						<option value="pre">PRECIO</option>
+					</select> <input type="text" name="txtBuscar" placeholder="DATOS A BUSCAR"
+						class="form-control form-sm  text-center bg-dark text-light border-3">
+					<button type="submit"
+						class="btn btn-outline-light btn-sm fw-bolder border-4 d-flex align-items-center"><i class="bi bi-search"></i> BUSCAR</button>
+				</form>
+			</div>
+		</div>
 		<table class="table table-dark table-striped table-hover table-responsive table-bordered text-center animate__animated animate__fadeInDown animate__delay-0.5s table-responsive">
 				<%
 				switch (seleccion){
