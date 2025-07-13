@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import entidadDto.AlmacenamientoDto;
 import entidadDto.AmdGraficaDto;
@@ -19,9 +20,10 @@ import entidadDto.RamDto;
 import utils.MySQLDBConexion;
 
 public class ModelInventario {
-public List<AlmacenamientoDto> tAlmacenamiento() {
+	public List<AlmacenamientoDto> tAlmacenamiento(String tipoBusqueda, Optional<String> datosBuscar,
+			Optional<String> tipoSelec) {
 	List<AlmacenamientoDto> info = new ArrayList<AlmacenamientoDto>();
-	String sql = "SELECT a.id_almac AS ID, "
+	StringBuilder sql = new StringBuilder ("SELECT a.id_almac AS ID, "
 			+ "a.descrip_almace As Descripcion, "
 			+ "ac.desc_capac_almac AS Capacidad, "
 			+ "au.nombre_unid As Unidades, "
@@ -34,12 +36,26 @@ public List<AlmacenamientoDto> tAlmacenamiento() {
 			+ "LEFT Join Almacenamiento_tipo As at "
 			+ "on a.tipo_almac_id = at.id_almacenamiento_tipo "
 			+ "LEFT Join Almacenamiento_unidades As au "
-			+ "on ac.uni_almac_id = au.id_unid "
-			+ "order By ID";
+			+ "on ac.uni_almac_id = au.id_unid ");
+	if (datosBuscar.isPresent()) {
+		sql.append("WHERE "+ tipoBusqueda + " ?");
+	}
+	sql.append(" order By ID");
 	try (Connection con = MySQLDBConexion.getConexion();
-		PreparedStatement pstm = con.prepareStatement(sql);
-		ResultSet rs = pstm.executeQuery();
+		PreparedStatement pstm = con.prepareStatement(sql.toString());
 		){
+		if (datosBuscar.isPresent()) {
+			switch (tipoSelec.get()) {
+			case "nom":
+				pstm.setString(1, "%" + datosBuscar.get() + "%");
+				break;
+
+			default:
+				pstm.setString(1, datosBuscar.get());
+				break;
+			}
+		}
+		try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			AlmacenamientoDto alm = new AlmacenamientoDto();
 			alm.setId_almace_dto(rs.getInt(1));
@@ -51,25 +67,41 @@ public List<AlmacenamientoDto> tAlmacenamiento() {
 			alm.setStock_almace_dto(rs.getInt(7));
 			info.add(alm);
 		}
+		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
 }
-public List<DisipadorDto> tDisipador() {
+public List<DisipadorDto> tDisipador(String tipoBusqueda, Optional<String> datosBuscar,
+		Optional<String> tipoSelec) {
 	List<DisipadorDto> info = new ArrayList<DisipadorDto>();
-	String sql="SELECT d.id_disipador AS ID, "
+	StringBuilder sql= new StringBuilder("SELECT d.id_disipador AS ID, "
 			+ "d.descrip_disip As Descripcion, "
 			+ "dt.tipo_disipador As Tipo, "
 			+ "d.precio_disipador As Precio, "
 			+ "d.stock_disipador As stock "
 			+ "FROM Disipador As d "
 			+ "LEFT Join Disipador_tipo As dt "
-			+ "on d.tipo_disip_id = dt.id_disip_tipo "
-			+ "order By ID";
+			+ "on d.tipo_disip_id = dt.id_disip_tipo ");
+	if(datosBuscar.isPresent())	{
+		sql.append("WHERE " + tipoBusqueda + " ? ");
+	}
+	sql.append("order By ID");
 	try (Connection con = MySQLDBConexion.getConexion();
-		PreparedStatement pstm = con.prepareStatement(sql);
-		ResultSet rs = pstm.executeQuery();
+		PreparedStatement pstm = con.prepareStatement(sql.toString());
 			){
+		if (datosBuscar.isPresent()) {
+			switch (tipoSelec.get()) {
+			case "nom":
+				pstm.setString(1, "%" + datosBuscar.get() + "%");
+				break;
+
+			default:
+				pstm.setString(1, datosBuscar.get());
+				break;
+			}
+		}
+		try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			DisipadorDto dspd = new DisipadorDto();
 			dspd.setId_disipador_tdo(rs.getInt(1));
@@ -79,13 +111,15 @@ public List<DisipadorDto> tDisipador() {
 			dspd.setStock_disipador_tdo(rs.getInt(5));
 			info.add(dspd);			
 		}
+		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
 }
-public List<FuenteDto> tFuente(){
+public List<FuenteDto> tFuente(String tipoBusqueda, Optional<String> datosBuscar,
+		Optional<String> tipoSelec){
 	List<FuenteDto> info = new ArrayList<FuenteDto>();
-	String sql = "SELECT f.id_fuente AS ID, "
+	StringBuilder sql = new StringBuilder ("SELECT f.id_fuente AS ID, "
 			+ "f.descripcion_fuente As Descripcion, "
 			+ "fc.watts As watts, "
 			+ "fcc.certificacion As Certificacion, "
@@ -95,12 +129,26 @@ public List<FuenteDto> tFuente(){
 			+ "LEFT Join GestionDeInventario.Fuente_capacidad As fc "
 			+ "on f.capacidad_fuente_id = fc.id_capacidad_fuente "
 			+ "LEFT Join GestionDeInventario.Fuente_certificacion As fcc "
-			+ "on f.certificado_fuente_id = fcc.id_fuente_certificacion "
-			+ "order By ID";
-	try(Connection con = MySQLDBConexion.getConexion();
-		PreparedStatement pstm = con.prepareStatement(sql);
-		ResultSet rs = pstm.executeQuery();
-		) {
+			+ "on f.certificado_fuente_id = fcc.id_fuente_certificacion ");
+			if(datosBuscar.isPresent())	{
+				sql.append("WHERE " + tipoBusqueda + " ? ");
+			}
+			sql.append("order By ID");
+			try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql.toString());
+					){
+				if (datosBuscar.isPresent()) {
+					switch (tipoSelec.get()) {
+					case "nom":
+						pstm.setString(1, "%" + datosBuscar.get() + "%");
+						break;
+
+					default:
+						pstm.setString(1, datosBuscar.get());
+						break;
+					}
+				}
+				try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			FuenteDto fetd = new FuenteDto();
 			fetd.setId_fuente(rs.getInt(1));
@@ -111,14 +159,16 @@ public List<FuenteDto> tFuente(){
 			fetd.setStock_fuente(rs.getInt(6));
 			info.add(fetd);
 		}		
+				}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
 }
 
-public List<IntelProcesadorDto> tIntelProcesador() {
+public List<IntelProcesadorDto> tIntelProcesador(String tipoBusqueda, Optional<String> datosBuscar,
+		Optional<String> tipoSelec) {
 	List<IntelProcesadorDto> info = new ArrayList<IntelProcesadorDto>();
-	String sql = "SELECT pi.id_proce_intel AS ID, "
+	StringBuilder sql = new StringBuilder("SELECT pi.id_proce_intel AS ID, "
 			+ "gi.nom_gama_intel As Gama, "
 			+ "gpi.nombre_gene_intel As Generacion, "
 			+ "gpi.nombre_clave_gene_intel As Nombre_clave, "
@@ -128,12 +178,26 @@ public List<IntelProcesadorDto> tIntelProcesador() {
 			+ "LEFT Join GestionDeInventario.Gama_intel as gi "
 			+ "on pi.gama_intel_id = gi.id_gama_intel "
 			+ "LEFT Join GestionDeInventario.Generacion_procs_intel as gpi "
-			+ "on pi.gener_proce_intel_id = gpi.id_gene_proc_intel "
-			+ "order By ID";
+			+ "on pi.gener_proce_intel_id = gpi.id_gene_proc_intel ");
+	if(datosBuscar.isPresent())	{
+		sql.append("WHERE " + tipoBusqueda + " ? ");
+	}
+	sql.append("order By ID");
 	try (Connection con = MySQLDBConexion.getConexion();
-		 PreparedStatement pstm = con.prepareStatement(sql);
-		 ResultSet rs = pstm.executeQuery();
-		) {
+		PreparedStatement pstm = con.prepareStatement(sql.toString());
+			){
+		if (datosBuscar.isPresent()) {
+			switch (tipoSelec.get()) {
+			case "nom":
+				pstm.setString(1, "%" + datosBuscar.get() + "%");
+				break;
+
+			default:
+				pstm.setString(1, datosBuscar.get());
+				break;
+			}
+		}
+		try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			IntelProcesadorDto ipd = new IntelProcesadorDto();
 			ipd.setId_intel(rs.getInt(1));
@@ -144,14 +208,16 @@ public List<IntelProcesadorDto> tIntelProcesador() {
 			ipd.setStock_intel(rs.getInt(6));
 			info.add(ipd);
 		}
+		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
 }
 
-public List<AmdProcesadorDto> tAmdProcesador() {
+public List<AmdProcesadorDto> tAmdProcesador(String tipoBusqueda, Optional<String> datosBuscar,
+		Optional<String> tipoSelec) {
 	List<AmdProcesadorDto> info = new ArrayList<AmdProcesadorDto>();
-	String sql = "SELECT pa.id_proce_AMD AS ID, "
+	StringBuilder sql = new StringBuilder("SELECT pa.id_proce_AMD AS ID, "
 			+ "gp.nom_gama_proc_amd  As Gama, "
 			+ "gpa.nom_gene_proce_amd As Generacion, "
 			+ "gpa.nom_clave_gene_amd  As Nombre_clave, "
@@ -161,12 +227,26 @@ public List<AmdProcesadorDto> tAmdProcesador() {
 			+ "LEFT Join GestionDeInventario.Gama_proce_amd as gp "
 			+ "on pa.gama_AMD_id = gp.id_gama_proce_amd "
 			+ "LEFT Join GestionDeInventario.Generacion_proces_amd as gpa "
-			+ "on pa.gener_proce_AMD_id = gpa.id_generacion_proce_amd "
-			+ "order By ID";
+			+ "on pa.gener_proce_AMD_id = gpa.id_generacion_proce_amd ");
+	if(datosBuscar.isPresent())	{
+		sql.append("WHERE " + tipoBusqueda + " ? ");
+	}
+	sql.append("order By ID");
 	try (Connection con = MySQLDBConexion.getConexion();
-		 PreparedStatement pstm = con.prepareStatement(sql);
-		 ResultSet rs = pstm.executeQuery();
-		) {
+		PreparedStatement pstm = con.prepareStatement(sql.toString());
+			){
+		if (datosBuscar.isPresent()) {
+			switch (tipoSelec.get()) {
+			case "nom":
+				pstm.setString(1, "%" + datosBuscar.get() + "%");
+				break;
+
+			default:
+				pstm.setString(1, datosBuscar.get());
+				break;
+			}
+		}
+		try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			AmdProcesadorDto apd = new AmdProcesadorDto();
 			apd.setId_amd_procesador(rs.getInt(1));
@@ -177,14 +257,16 @@ public List<AmdProcesadorDto> tAmdProcesador() {
 			apd.setStock_amd_procesador(rs.getInt(6));
 			info.add(apd);
 		}
+		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
 }
 
-public List<AmdGraficaDto> tAmdGrafica(){
+public List<AmdGraficaDto> tAmdGrafica(String tipoBusqueda, Optional<String> datosBuscar,
+		Optional<String> tipoSelec){
 	List<AmdGraficaDto> info = new ArrayList<AmdGraficaDto>();
-	String sql = "SELECT ga.id_grafica_amd AS ID, "
+	StringBuilder sql = new StringBuilder("SELECT ga.id_grafica_amd AS ID, "
 			+ "ga.descripcion_grafi_amd As Descripcion, "
 			+ "gg.gama_descrip As Gama,"
 			+ "gag.descrip_gene_grafi_amd As Generacion, "
@@ -194,12 +276,27 @@ public List<AmdGraficaDto> tAmdGrafica(){
 			+ "LEFT Join GestionDeInventario.Grafica_amd_gama as gg "
 			+ "on ga.gama_grafi_amd_id = gg.id_gama_amd_grafica "
 			+ "LEFT Join GestionDeInventario.Grafica_amd_generacion as gag "
-			+ "on ga.generacion_grafi_amd_id = gag.id_gene_grafi_amd "
-			+ "order By ID";
-	try (Connection con = MySQLDBConexion.getConexion();
-		 PreparedStatement pstm = con.prepareStatement(sql);
-		 ResultSet rs = pstm.executeQuery();
-		) {
+			+ "on ga.generacion_grafi_amd_id = gag.id_gene_grafi_amd ");
+	
+			if(datosBuscar.isPresent())	{
+				sql.append("WHERE " + tipoBusqueda + " ? ");
+			}
+			sql.append("order By ID");
+			try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql.toString());
+					){
+				if (datosBuscar.isPresent()) {
+					switch (tipoSelec.get()) {
+					case "nom":
+						pstm.setString(1, "%" + datosBuscar.get() + "%");
+						break;
+
+					default:
+						pstm.setString(1, datosBuscar.get());
+						break;
+					}
+				}
+				try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			AmdGraficaDto agd = new AmdGraficaDto();
 			agd.setId_amd_grafica(rs.getInt(1));
@@ -210,14 +307,16 @@ public List<AmdGraficaDto> tAmdGrafica(){
 			agd.setStock_amd_grafica(rs.getInt(6));
 			info.add(agd);
 		}
+		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
 }
 
-public List<NvidiaGraficaDto> tNvidiaGrafica() {
+public List<NvidiaGraficaDto> tNvidiaGrafica(String tipoBusqueda, Optional<String> datosBuscar,
+		Optional<String> tipoSelec) {
 	List<NvidiaGraficaDto> info = new ArrayList<NvidiaGraficaDto>();
-	String sql = "SELECT gn.id_grafica_nvidia AS ID, "
+	StringBuilder sql = new StringBuilder("SELECT gn.id_grafica_nvidia AS ID, "
 			+ "gn.descripcion_grafi_nvidia As Descripcion, "
 			+ "gg.descrip_gene_grafi_nvidia As Generacion, "
 			+ "gng.gama_descrip_nvidia As Gama, "
@@ -227,12 +326,26 @@ public List<NvidiaGraficaDto> tNvidiaGrafica() {
 			+ "LEFT Join GestionDeInventario.Grafica_nvidia_gama as gng "
 			+ "on gn.gama_grafi_nvidia_id = gng.id_gama_nvidia_grafica "
 			+ "LEFT Join GestionDeInventario.Grafica_nvidia_generacion as gg "
-			+ "on gn.generacion_grafi_nvidia_id = gg.id_gene_grafi_nvidia "
-			+ "order By ID";
+			+ "on gn.generacion_grafi_nvidia_id = gg.id_gene_grafi_nvidia ");
+	if(datosBuscar.isPresent())	{
+		sql.append("WHERE " + tipoBusqueda + " ? ");
+	}
+	sql.append("order By ID");
 	try (Connection con = MySQLDBConexion.getConexion();
-		 PreparedStatement pstm = con.prepareStatement(sql);
-		 ResultSet rs = pstm.executeQuery();
-		) {
+		PreparedStatement pstm = con.prepareStatement(sql.toString());
+			){
+		if (datosBuscar.isPresent()) {
+			switch (tipoSelec.get()) {
+			case "nom":
+				pstm.setString(1, "%" + datosBuscar.get() + "%");
+				break;
+
+			default:
+				pstm.setString(1, datosBuscar.get());
+				break;
+			}
+		}
+		try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			NvidiaGraficaDto ngd = new NvidiaGraficaDto();
 			ngd.setId_nvidia_grafica(rs.getInt(1));
@@ -243,25 +356,41 @@ public List<NvidiaGraficaDto> tNvidiaGrafica() {
 			ngd.setStock_nvidia_grafica(rs.getInt(6));
 			info.add(ngd);
 		}
+		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
 }
-public List<PerifericosDto> tPerifericos() {
+public List<PerifericosDto> tPerifericos(String tipoBusqueda, Optional<String> datosBuscar,
+		Optional<String> tipoSelec) {
 	List<PerifericosDto> info = new ArrayList<PerifericosDto>();
-	String sql = "SELECT p.id_perifericos AS ID, "
+	StringBuilder sql = new StringBuilder("SELECT p.id_perifericos AS ID, "
 			+ "p.descripc_perifericos As Descripcion, "
 			+ "pt.descrip_tipo_perifericos As Tipo, "
 			+ "p.precio_perifericos As Precio, "
 			+ "p.stock_perifericos As stock "
 			+ "FROM GestionDeInventario.Perifericos as p "
 			+ "LEFT Join GestionDeInventario.Perifericos_tipo as pt "
-			+ "on p.tipo_perifericos_id = pt.id_tipo_perifericos "
-			+ "order By ID";
-	try (Connection con = MySQLDBConexion.getConexion();
-		 PreparedStatement pstm = con.prepareStatement(sql);
-		 ResultSet rs = pstm.executeQuery();
-		) {
+			+ "on p.tipo_perifericos_id = pt.id_tipo_perifericos ");
+			if(datosBuscar.isPresent())	{
+				sql.append("WHERE " + tipoBusqueda + " ? ");
+			}
+			sql.append("order By ID");
+			try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql.toString());
+					){
+				if (datosBuscar.isPresent()) {
+					switch (tipoSelec.get()) {
+					case "nom":
+						pstm.setString(1, "%" + datosBuscar.get() + "%");
+						break;
+
+					default:
+						pstm.setString(1, datosBuscar.get());
+						break;
+					}
+				}
+				try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			PerifericosDto pd = new PerifericosDto();
 			pd.setId_perifericos(rs.getInt(1));
@@ -271,26 +400,42 @@ public List<PerifericosDto> tPerifericos() {
 			pd.setStock_perifericos(rs.getInt(5));
 			info.add(pd);
 		}
+	}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
 }
 
-public List<PlacaBaseDto> tPlacaBase() {
+public List<PlacaBaseDto> tPlacaBase(String tipoBusqueda, Optional<String> datosBuscar,
+		Optional<String> tipoSelec) {
 	List<PlacaBaseDto> info = new ArrayList<PlacaBaseDto>();
-	String sql = "SELECT pb.id_placa_base AS ID, "
+	StringBuilder sql = new StringBuilder("SELECT pb.id_placa_base AS ID, "
 			+ "pb.descri_placa_base As Descripcion, "
 			+ "rg.gener_ram_nom AS \"Ram Generacion\", "
 			+ "pb.precio_placa_base As Precio, "
 			+ "pb.stock_placa_base As stock "
 			+ "FROM GestionDeInventario.PlacaBase as pb "
 			+ "LEFT Join GestionDeInventario.Ram_generacion as rg "
-			+ "on pb.gene_ram_id = rg.id_gener_ram_nom "
-			+ "order By ID";
+			+ "on pb.gene_ram_id = rg.id_gener_ram_nom ");
+	if(datosBuscar.isPresent())	{
+		sql.append("WHERE " + tipoBusqueda + " ? ");
+	}
+	sql.append("order By ID");
 	try (Connection con = MySQLDBConexion.getConexion();
-		 PreparedStatement pstm = con.prepareStatement(sql);
-		 ResultSet rs = pstm.executeQuery();
-		) {
+		PreparedStatement pstm = con.prepareStatement(sql.toString());
+			){
+		if (datosBuscar.isPresent()) {
+			switch (tipoSelec.get()) {
+			case "nom":
+				pstm.setString(1, "%" + datosBuscar.get() + "%");
+				break;
+
+			default:
+				pstm.setString(1, datosBuscar.get());
+				break;
+			}
+		}
+		try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			PlacaBaseDto pbd = new PlacaBaseDto();
 			pbd.setId_placa_base(rs.getInt(1));
@@ -300,15 +445,16 @@ public List<PlacaBaseDto> tPlacaBase() {
 			pbd.setStock_placa_base(rs.getInt(5));
 			info.add(pbd);
 		}
-		
+		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
 }
 
-public List<RamDto> tRam() {
+public List<RamDto> tRam(String tipoBusqueda, Optional<String> datosBuscar,
+		Optional<String> tipoSelec) {
 	List<RamDto> info = new ArrayList<RamDto>();
-	String sql = "SELECT r.id_ram AS ID, "
+	StringBuilder sql = new StringBuilder("SELECT r.id_ram AS ID, "
 			+ "r.descrip_ram As Descripcion, "
 			+ "rc.capacidad_gb AS Capacidad_GB, "
 			+ "rg.gener_ram_nom AS Ram_Generacion, "
@@ -318,12 +464,26 @@ public List<RamDto> tRam() {
 			+ "LEFT Join GestionDeInventario.Ram_generacion as rg "
 			+ "on r.genera_ram_id = rg.id_gener_ram_nom "
 			+ "LEFT Join GestionDeInventario.Ram_capacidad as rc "
-			+ "on r.capaci_ram_id = rc.id_ram_capac "
-			+ "order By ID";
+			+ "on r.capaci_ram_id = rc.id_ram_capac ");
+	if(datosBuscar.isPresent())	{
+		sql.append("WHERE " + tipoBusqueda + " ? ");
+	}
+	sql.append("order By ID");
 	try (Connection con = MySQLDBConexion.getConexion();
-		 PreparedStatement pstm = con.prepareStatement(sql);
-		 ResultSet rs = pstm.executeQuery();
-		) {
+		PreparedStatement pstm = con.prepareStatement(sql.toString());
+			){
+		if (datosBuscar.isPresent()) {
+			switch (tipoSelec.get()) {
+			case "nom":
+				pstm.setString(1, "%" + datosBuscar.get() + "%");
+				break;
+
+			default:
+				pstm.setString(1, datosBuscar.get());
+				break;
+			}
+		}
+		try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			RamDto rd = new RamDto();
 			rd.setId_ram(rs.getInt(1));
@@ -334,6 +494,7 @@ public List<RamDto> tRam() {
 			rd.setStock_ram(rs.getInt(6));
 			info.add(rd);
 		}
+	  }
 	} catch (Exception e) {
 		e.printStackTrace();
 	}return info;
