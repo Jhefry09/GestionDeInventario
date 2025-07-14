@@ -20,6 +20,19 @@ import entidadDto.RamDto;
 import utils.MySQLDBConexion;
 
 public class ModelInventario {
+	public Integer Borrar(Integer idBorrar, String nomTabla, String tipoId) {
+		int borrar = -1;
+		String sql ="DELETE FROM " + nomTabla + " WHERE " + tipoId + " = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+			 PreparedStatement pstm = con.prepareStatement(sql);
+			) {
+			pstm.setInt(1, idBorrar);
+			borrar = pstm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return borrar;
+	}
+	
 	public List<AlmacenamientoDto> tAlmacenamiento(String tipoBusqueda, Optional<String> datosBuscar,
 			Optional<String> tipoSelec) {
 	List<AlmacenamientoDto> info = new ArrayList<AlmacenamientoDto>();
