@@ -76,7 +76,7 @@
 				</form>
 			</div>
 		</div>
-		<table class="table table-dark table-striped table-hover table-responsive table-bordered text-center animate__animated animate__fadeInDown animate__delay-0.5s table-responsive">
+		<table class="table table-dark table-striped table-hover table-responsive table-bordered text-center  table-responsive">
 				<%
 				switch (seleccion){
 				case "ALMACENAMIENTO":{
@@ -114,10 +114,12 @@
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Almacenamiento">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
-				<form action="ServletEmpleado">
+				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
-				<input type="hidden" name="codigo"value="<%=dat.getId_almace_dto()%>">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Almacenamiento">
+				<input type="hidden" name="codigo"value="<%=dat.getId_almace_dto()%>">
+				<input type="hidden" name="inventario" value="<%=seleccion%>">
+				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
 				</form>
 				</td>
@@ -158,10 +160,12 @@
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Disipador">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
-				<form action="ServletEmpleado">
+				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
-				<input type="hidden" name="codigo"value="<%=dat.getId_disipador_tdo()%>">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Disipador">
+				<input type="hidden" name="codigo"value="<%=dat.getId_disipador_tdo()%>">
+				<input type="hidden" name="inventario" value="<%=seleccion%>">
+				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
 				</form>
 				</td>
@@ -204,9 +208,12 @@
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Fuente_de_Energia">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
-				<form action="ServletEmpleado">
+				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Fuente_de_Energia">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_fuente()%>">
+				<input type="hidden" name="inventario" value="<%=seleccion%>">
+				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
 				</form>
 				</td>
@@ -249,10 +256,12 @@
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorIntel">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
-				<form action="ServletEmpleado">
+				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
-				<input type="hidden" name="codigo"value="<%=dat.getId_intel()%>">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorIntel">
+				<input type="hidden" name="codigo"value="<%=dat.getId_intel()%>">
+				<input type="hidden" name="inventario" value="<%=seleccion%>">
+				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
 				</form>
 				</td>
@@ -295,10 +304,12 @@
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorAMD">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
-				<form action="ServletEmpleado">
+				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
-				<input type="hidden" name="codigo"value="<%=dat.getId_amd_procesador()%>">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorAMD">
+				<input type="hidden" name="codigo"value="<%=dat.getId_amd_procesador()%>">
+				<input type="hidden" name="inventario" value="<%=seleccion%>">
+				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
 				</form>
 				</td>
@@ -341,10 +352,12 @@
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_amd">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
-				<form action="ServletEmpleado">
+				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
-				<input type="hidden" name="codigo"value="<%=dat.getId_amd_grafica()%>">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_amd">
+				<input type="hidden" name="codigo"value="<%=dat.getId_amd_grafica()%>">
+				<input type="hidden" name="inventario" value="<%=seleccion%>">
+				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
 				</form>
 				</td>
@@ -387,10 +400,12 @@
 				<input type="hidden" name="idEditar" value="<%=dat.getId_nvidia_grafica()%>">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
-				<form action="ServletEmpleado">
+				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
-				<input type="hidden" name="codigo"value="<%=dat.getId_nvidia_grafica()%>">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_nvidia">
+				<input type="hidden" name="codigo"value="<%=dat.getId_nvidia_grafica()%>">
+				<input type="hidden" name="inventario" value="<%=seleccion%>">
+				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
 				</form>
 				</td>
@@ -431,9 +446,11 @@
 				<input type="hidden" name="idEditar" value="<%=dat.getId_perifericos()%>">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
-				<form action="ServletEmpleado">
+				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Perifericos">
+				<input type="hidden" name="inventario" value="<%=seleccion%>">
+				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<input type="hidden" name="codigo"value="<%=dat.getId_perifericos()%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
 				</form>
@@ -475,9 +492,11 @@
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.PlacaBase">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
-				<form action="ServletEmpleado">
+				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.PlacaBase">
+				<input type="hidden" name="inventario" value="<%=seleccion%>">
+				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<input type="hidden" name="codigo"value="<%=dat.getId_placa_base()%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
 				</form>
@@ -521,9 +540,11 @@
 				<input type="hidden" name="idEditar" value="<%=dat.getId_ram()%>">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
-				<form action="ServletEmpleado">
+				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Ram">
+				<input type="hidden" name="inventario" value="<%=seleccion%>">
+				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<input type="hidden" name="codigo" value="<%=dat.getId_ram()%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
 				</form>
