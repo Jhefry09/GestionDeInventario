@@ -325,7 +325,46 @@ public class ServletInventario extends HttpServlet {
 		request.getRequestDispatcher("inventario.jsp").forward(request, response);
 	}
 	protected void BtnBorrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		Integer idBorrar = Integer.parseInt(request.getParameter("codigo"));
+		String nomTabla = request.getParameter("NomTabla");
+		String tipoId = "";
+		switch (nomTabla) {
+		case "GestionDeInventario.Ram":
+			tipoId = "id_ram";
+			break;
+		case "GestionDeInventario.PlacaBase":
+			tipoId = "id_placa_base";
+			break;
+		case "GestionDeInventario.Perifericos":
+			tipoId = "id_perifericos";
+			break;
+		case "GestionDeInventario.Grafica_nvidia":
+			tipoId = "id_grafica_nvidia";
+			break;
+		case "GestionDeInventario.Grafica_amd":
+			tipoId = "id_grafica_amd";
+			break;
+		case "GestionDeInventario.ProcesadorAMD":
+			tipoId = "id_proce_AMD";
+			break;
+		case "GestionDeInventario.ProcesadorIntel":
+			tipoId = "id_proce_intel";
+			break;
+		case "GestionDeInventario.Fuente_de_Energia":
+			tipoId = "id_fuente";
+			break;
+		case "GestionDeInventario.Disipador":
+			tipoId = "id_disipador";
+			break;
+		case "GestionDeInventario.Almacenamiento":
+			tipoId = "id_almac";
+			break;
+		}
+		System.out.println(idBorrar);
+		System.out.println(nomTabla);
+		System.out.println(tipoId);
+		inventario.Borrar(idBorrar, nomTabla, tipoId);
+		Listar(request, response);
 	}	
 }
 
