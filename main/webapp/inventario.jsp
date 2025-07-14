@@ -92,6 +92,7 @@
 			<th scope="col">TIPO</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
+			<th scope="col">EDITAR</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -106,6 +107,20 @@
 				<td><%=dat.getTipo_almace_dto()%></td>
 				<td>S/.<%=dat.getPrecio_almace_dto()%></td>
 				<td><%=dat.getStock_almace_dto()%></td>
+				<td class="gap-2 d-flex align-items-center justify-content-center" >
+				<form action="ServletInventario">
+				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_almace_dto()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Almacenamiento">
+				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
+				</form>
+				<form action="ServletEmpleado">
+				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="codigo"value="<%=dat.getId_almace_dto()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Almacenamiento">
+				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
+				</form>
+				</td>
 			</tr>
 			<%
 			}
@@ -123,6 +138,7 @@
 			<th scope="col">TIPO</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
+			<th scope="col">EDI</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -135,6 +151,20 @@
 				<td><%=dat.getTipo_disipador_tdo() %></td>
 				<td>S/.<%=dat.getPrecio_disipador_tdo() %></td>
 				<td><%=dat.getStock_disipador_tdo() %></td>
+				<td class="gap-2 d-flex align-items-center justify-content-center" >
+				<form action="ServletInventario">
+				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_disipador_tdo()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Disipador">
+				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
+				</form>
+				<form action="ServletEmpleado">
+				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="codigo"value="<%=dat.getId_disipador_tdo()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Disipador">
+				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
+				</form>
+				</td>
 			</tr>
 			<%
 			}
@@ -153,6 +183,7 @@
 			<th scope="col">CERTIFICACION</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
+			<th scope="col">EDITAR</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -166,6 +197,19 @@
 				<td><%=dat.getCertificacion_fuente() %></td>
 				<td>S/.<%=dat.getPrecio_fuente() %></td>
 				<td><%=dat.getStock_fuente() %></td>
+				<td class="gap-2 d-flex align-items-center justify-content-center" >
+				<form action="ServletInventario">
+				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_fuente()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Fuente_de_Energia">
+				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
+				</form>
+				<form action="ServletEmpleado">
+				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Fuente_de_Energia">
+				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
+				</form>
+				</td>
 			</tr>
 			<%
 			}
@@ -184,6 +228,7 @@
 			<th scope="col">NOMBRE CLAVE</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
+			<th scope="col">EDITAR</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -197,6 +242,20 @@
 				<td><%=dat.getNombre_clave_intel() %></td>
 				<td>S/.<%=dat.getPrecio_intel() %></td>
 				<td><%=dat.getStock_intel() %></td>
+				<td class="gap-2 d-flex align-items-center justify-content-center" >
+				<form action="ServletInventario">
+				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_intel()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorIntel">
+				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
+				</form>
+				<form action="ServletEmpleado">
+				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="codigo"value="<%=dat.getId_intel()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorIntel">
+				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
+				</form>
+				</td>
 			</tr>
 			<%
 			}
@@ -215,6 +274,7 @@
 			<th scope="col">NOMBRE CLAVE</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
+			<th scope="col">EDITAR</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -228,6 +288,20 @@
 				<td><%=dat.getNombre_clave_amd_procesador() %></td>
 				<td>S/.<%=dat.getPrecio_amd_procesador() %></td>
 				<td><%=dat.getStock_amd_procesador() %></td>
+				<td class="gap-2 d-flex align-items-center justify-content-center" >
+				<form action="ServletInventario">
+				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_amd_procesador()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorAMD">
+				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
+				</form>
+				<form action="ServletEmpleado">
+				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="codigo"value="<%=dat.getId_amd_procesador()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorAMD">
+				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
+				</form>
+				</td>
 			</tr>
 			<%
 			}
@@ -246,6 +320,7 @@
 			<th scope="col">GAMA</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
+			<th scope="col">EDITAR</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -259,6 +334,20 @@
 				<td><%=dat.getGama_amd_grafica() %></td>
 				<td>S/.<%=dat.getPrecio_amd_grafica() %></td>
 				<td><%=dat.getStock_amd_grafica() %></td>
+				<td class="gap-2 d-flex align-items-center justify-content-center" >
+				<form action="ServletInventario">
+				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_amd_grafica()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_amd">
+				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
+				</form>
+				<form action="ServletEmpleado">
+				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="codigo"value="<%=dat.getId_amd_grafica()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_amd">
+				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
+				</form>
+				</td>
 			</tr>
 			<%
 			}
@@ -277,6 +366,7 @@
 			<th scope="col">GAMA</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
+			<th scope="col">EDITAR</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -290,6 +380,20 @@
 				<td><%=dat.getGama_nvidia_grafica() %></td>
 				<td>S/.<%=dat.getPrecio_nvidia_grafica() %></td>
 				<td><%=dat.getStock_nvidia_grafica() %></td>
+				<td class="gap-2 d-flex align-items-center justify-content-center" >
+				<form action="ServletInventario">
+				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_nvidia">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_nvidia_grafica()%>">
+				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
+				</form>
+				<form action="ServletEmpleado">
+				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="codigo"value="<%=dat.getId_nvidia_grafica()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_nvidia">
+				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
+				</form>
+				</td>
 			</tr>
 			<%
 			}
@@ -307,6 +411,7 @@
 			<th scope="col">TIPO</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
+			<th scope="col">EDITAR</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -319,6 +424,20 @@
 				<td><%=dat.getTipo_perifericos() %></td>
 				<td>S/.<%=dat.getPrecio_perifericos() %></td>
 				<td><%=dat.getStock_perifericos() %></td>
+				<td class="gap-2 d-flex align-items-center justify-content-center" >
+				<form action="ServletInventario">
+				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Perifericos">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_perifericos()%>">
+				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
+				</form>
+				<form action="ServletEmpleado">
+				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Perifericos">
+				<input type="hidden" name="codigo"value="<%=dat.getId_perifericos()%>">
+				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
+				</form>
+				</td>
 			</tr>
 			<%
 			}
@@ -336,6 +455,7 @@
 			<th scope="col">DDR4/DDR5</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
+			<th scope="col">EDITAR</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -348,6 +468,20 @@
 				<td><%=dat.getRam_generacion_placa_base() %></td>
 				<td>S/.<%=dat.getPrecio_placa_base() %></td>
 				<td><%=dat.getStock_placa_base() %></td>
+				<td class="gap-2 d-flex align-items-center justify-content-center" >
+				<form action="ServletInventario">
+				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_placa_base()%>">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.PlacaBase">
+				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
+				</form>
+				<form action="ServletEmpleado">
+				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.PlacaBase">
+				<input type="hidden" name="codigo"value="<%=dat.getId_placa_base()%>">
+				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
+				</form>
+				</td>
 			</tr>
 			<%
 			}
@@ -366,6 +500,7 @@
 			<th scope="col">DDR4/DDR5</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
+			<th scope="col">EDITAR</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -379,6 +514,20 @@
 				<td><%=dat.getRam_generacion_ram() %></td>
 				<td>S/.<%=dat.getPrecio_ram() %></td>
 				<td><%=dat.getStock_ram() %></td>
+				<td class="gap-2 d-flex align-items-center justify-content-center" >
+				<form action="ServletInventario">
+				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Ram">
+				<input type="hidden" name="idEditar" value="<%=dat.getId_ram()%>">
+				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
+				</form>
+				<form action="ServletEmpleado">
+				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Ram">
+				<input type="hidden" name="codigo" value="<%=dat.getId_ram()%>">
+				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
+				</form>
+				</td>
 			</tr>
 			<%
 			}
