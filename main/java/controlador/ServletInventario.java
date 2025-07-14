@@ -30,6 +30,13 @@ public class ServletInventario extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    public String DatosSeleccionados(HttpServletRequest request) {
+		String inven = request.getParameter("inventario");
+		request.setAttribute("selec", inven);
+		request.setAttribute("nombreSelec", "DESCRIPCION");
+		request.setAttribute("tipoSelec", "nom");
+		return inven;
+    }
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String selec = request.getParameter("seleccion");
     String dato = request.getParameter("txtBuscar");
@@ -51,8 +58,8 @@ public class ServletInventario extends HttpServlet {
 	case "editar":
 		//editar(request, response);
 		break;
-	case "borrar":
-		//borrar(request, response);
+	case "BtnBorrar":
+		BtnBorrar(request, response);
 		break;
 	case "btnEditar":
 		//btnEditar(request, response);
@@ -60,14 +67,11 @@ public class ServletInventario extends HttpServlet {
 	}
     }	
 	protected void Listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String inven = request.getParameter("inventario");
+		DatosSeleccionados(request);
 		Optional<String> vacio = Optional.empty();
 		String vaci = "";
-		request.setAttribute("selec", inven);
-		request.setAttribute("nombreSelec", "DESCRIPCION");
-		request.setAttribute("tipoSelec", "nom");
 
-	switch (inven ) {
+	switch (DatosSeleccionados(request)) {
 		case "ALMACENAMIENTO":
 			request.setAttribute("nombre", "ALMACENAMIENTO");
 			request.setAttribute("datos", inventario.tAlmacenamiento(vaci, vacio, vacio));
@@ -113,27 +117,27 @@ public class ServletInventario extends HttpServlet {
 	}
 	protected void Buscar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String inven = request.getParameter("inventario");
+		String tipoBuscar = "";
+		request.setAttribute("selec", inven);
 		Optional<String> tipoSelec = Optional.of(request.getParameter("tipoBuscar"));
 		Optional<String> datos = Optional.of(request.getParameter("txtBuscar"));
-		String tipoBuscar = "";
 		System.out.println(tipoSelec.get());
 		System.out.println(datos.get());
 		request.setAttribute("tipoSelec", tipoSelec.get());
-		request.setAttribute("selec", inven);
-		
+		String seleccionado = "";
 		switch (tipoSelec.get()) {
 		case "id":
-			request.setAttribute("nombreSelec", "ID");
+			seleccionado ="ID";
 			break;
 		case "pre":
-			request.setAttribute("nombreSelec", "PRECIO");
+			seleccionado ="PRECIO";
 			break;
 
 		default:
-			request.setAttribute("nombreSelec", "DESCRIPCION");
+			seleccionado ="DESCRIPCION";
 			break;
 		}
-
+		request.setAttribute("nombreSelec", seleccionado);
 		switch (inven) {
 		case "ALMACENAMIENTO":
 			request.setAttribute("nombre", "ALMACENAMIENTO");
@@ -320,6 +324,9 @@ public class ServletInventario extends HttpServlet {
 			}
 		request.getRequestDispatcher("inventario.jsp").forward(request, response);
 	}
+	protected void BtnBorrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}	
 }
 
 
