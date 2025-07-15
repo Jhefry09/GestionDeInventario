@@ -176,7 +176,7 @@ public class ServletInventario extends HttpServlet {
 		}
 		case "RAM"->{
 			tipoBuscar = TipoBuscar("r.id_ram", "r.precio_ram", "r.descrip_ram", request);
-			request.setAttribute("datos", inventario.tAlmacenamiento(tipoBuscar, datos, tipoSelec));
+			request.setAttribute("datos", inventario.tRam(tipoBuscar, datos, tipoSelec));
 			yield "RAM";
 		}
 		default ->{
