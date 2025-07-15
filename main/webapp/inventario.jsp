@@ -231,7 +231,7 @@
 			<tr>
 			<th scope="col">ID</th>
 			<th scope="col">GAMA</th>
-			<th scope="col">GENERACION</th>
+			<th scope="col">DESCRIPCION</th>
 			<th scope="col">NOMBRE CLAVE</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
@@ -279,7 +279,7 @@
 			<tr>
 			<th scope="col">ID</th>
 			<th scope="col">GAMA</th>
-			<th scope="col">GENERACION</th>
+			<th scope="col">DESCRIPCION</th>
 			<th scope="col">NOMBRE CLAVE</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
