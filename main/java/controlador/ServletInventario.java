@@ -46,7 +46,7 @@ public class ServletInventario extends HttpServlet {
     case "agregar"-> BtnAgregar(request, response);
     case "editar"-> Edicion(request, response);
     case "BtnBorrar"-> BtnBorrar(request, response);
-    case "btnEditar"-> BtnEditar(request, response);
+    case "BtnEditar"-> BtnEditar(request, response);
     };
     }
 	protected void BtnAgregar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,7 +56,18 @@ public class ServletInventario extends HttpServlet {
 		
 	}
 	protected void BtnEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		Optional<String> Codigo = Optional.of(request.getParameter("idEditar")); 
+		Optional<String> tipoSelec = Optional.of("id"); 		
+		String nomTa = request.getParameter("NomTabla");
+		switch (nomTa) {
+		case "Almacenamiento" -> {
+			request.setAttribute("datos", inventario.tAlmacenamiento("a.id_almac", Codigo, tipoSelec));		
+			System.out.println("paso por aqui");
+		}
+		default ->System.out.println("fallo, no encontro el nombre de la tabla a editar");
+		}
+		request.setAttribute("nomTa", nomTa);
+		request.getRequestDispatcher("Agregar.jsp").forward(request, response);
 	}
 	protected void Listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String inven = request.getParameter("inventario");
@@ -105,7 +116,7 @@ public class ServletInventario extends HttpServlet {
 	protected String TipoBuscar(String id, String precio, String descripcion, HttpServletRequest request ) {
 		Optional<String> tipoSelec = Optional.of(request.getParameter("tipoBuscar"));
 		String tipo = switch (tipoSelec.get()) {
-		case "id" -> id +" = ";
+		case "id" -> id;
 		case "pre" -> precio + " BETWEEN 0 AND ";
 		default -> descripcion + " LIKE";
 		};
