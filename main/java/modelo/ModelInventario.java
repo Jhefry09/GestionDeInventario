@@ -277,11 +277,12 @@ public class ModelInventario {
 			+ "on a.tipo_almac_id = at.id_almacenamiento_tipo "
 			+ "LEFT Join Almacenamiento_unidades As au "
 			+ "on ac.uni_almac_id = au.id_unid ");
-	VerificadorWhere(sql, tipoBusqueda, datosBuscar);
+	VerificadorWhere(sql, tipoBusqueda, datosBuscar, tipoSelec);
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql.toString());
 		){
 		Prepared(datosBuscar, tipoSelec, pstm);
+		System.out.println(sql);
 		try(ResultSet rs = pstm.executeQuery()){
 		while (rs.next()) {
 			AlmacenamientoDto alm = new AlmacenamientoDto();
@@ -310,7 +311,7 @@ public List<DisipadorDto> tDisipador(String tipoBusqueda, Optional<String> datos
 			+ "FROM Disipador As d "
 			+ "LEFT Join Disipador_tipo As dt "
 			+ "on d.tipo_disip_id = dt.id_disip_tipo ");
-	VerificadorWhere(sql, tipoBusqueda, datosBuscar);
+	VerificadorWhere(sql, tipoBusqueda, datosBuscar, tipoSelec);
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql.toString());
 			){
@@ -344,7 +345,7 @@ public List<FuenteDto> tFuente(String tipoBusqueda, Optional<String> datosBuscar
 			+ "on f.capacidad_fuente_id = fc.id_capacidad_fuente "
 			+ "LEFT Join GestionDeInventario.Fuente_certificacion As fcc "
 			+ "on f.certificado_fuente_id = fcc.id_fuente_certificacion ");
-	VerificadorWhere(sql, tipoBusqueda, datosBuscar);
+	VerificadorWhere(sql, tipoBusqueda, datosBuscar, tipoSelec);
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql.toString());
 			){
@@ -380,7 +381,7 @@ public List<IntelProcesadorDto> tIntelProcesador(String tipoBusqueda, Optional<S
 			+ "on pi.gama_intel_id = gi.id_gama_intel "
 			+ "LEFT Join GestionDeInventario.Generacion_procs_intel as gpi "
 			+ "on pi.gener_proce_intel_id = gpi.id_gene_proc_intel ");
-	VerificadorWhere(sql, tipoBusqueda, datosBuscar);
+	VerificadorWhere(sql, tipoBusqueda, datosBuscar, tipoSelec);
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql.toString());
 			){
@@ -416,7 +417,7 @@ public List<AmdProcesadorDto> tAmdProcesador(String tipoBusqueda, Optional<Strin
 			+ "on pa.gama_AMD_id = gp.id_gama_proce_amd "
 			+ "LEFT Join GestionDeInventario.Generacion_proces_amd as gpa "
 			+ "on pa.gener_proce_AMD_id = gpa.id_generacion_proce_amd ");
-	VerificadorWhere(sql, tipoBusqueda, datosBuscar);
+	VerificadorWhere(sql, tipoBusqueda, datosBuscar, tipoSelec);
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql.toString());
 			){
@@ -452,7 +453,7 @@ public List<AmdGraficaDto> tAmdGrafica(String tipoBusqueda, Optional<String> dat
 			+ "on ga.gama_grafi_amd_id = gg.id_gama_amd_grafica "
 			+ "LEFT Join GestionDeInventario.Grafica_amd_generacion as gag "
 			+ "on ga.generacion_grafi_amd_id = gag.id_gene_grafi_amd ");
-	VerificadorWhere(sql, tipoBusqueda, datosBuscar);
+	VerificadorWhere(sql, tipoBusqueda, datosBuscar, tipoSelec);
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql.toString());
 			){
@@ -488,7 +489,7 @@ public List<NvidiaGraficaDto> tNvidiaGrafica(String tipoBusqueda, Optional<Strin
 			+ "on gn.gama_grafi_nvidia_id = gng.id_gama_nvidia_grafica "
 			+ "LEFT Join GestionDeInventario.Grafica_nvidia_generacion as gg "
 			+ "on gn.generacion_grafi_nvidia_id = gg.id_gene_grafi_nvidia ");
-	VerificadorWhere(sql, tipoBusqueda, datosBuscar);
+	VerificadorWhere(sql, tipoBusqueda, datosBuscar, tipoSelec);
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql.toString());
 			){
@@ -520,7 +521,7 @@ public List<PerifericosDto> tPerifericos(String tipoBusqueda, Optional<String> d
 			+ "FROM GestionDeInventario.Perifericos as p "
 			+ "LEFT Join GestionDeInventario.Perifericos_tipo as pt "
 			+ "on p.tipo_perifericos_id = pt.id_tipo_perifericos ");
-	VerificadorWhere(sql, tipoBusqueda, datosBuscar);
+	VerificadorWhere(sql, tipoBusqueda, datosBuscar, tipoSelec);
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql.toString());
 			){
@@ -552,7 +553,7 @@ public List<PlacaBaseDto> tPlacaBase(String tipoBusqueda, Optional<String> datos
 			+ "FROM GestionDeInventario.PlacaBase as pb "
 			+ "LEFT Join GestionDeInventario.Ram_generacion as rg "
 			+ "on pb.gene_ram_id = rg.id_gener_ram_nom ");
-	VerificadorWhere(sql, tipoBusqueda, datosBuscar);
+	VerificadorWhere(sql, tipoBusqueda, datosBuscar, tipoSelec);
 
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql.toString());
@@ -588,7 +589,7 @@ public List<RamDto> tRam(String tipoBusqueda, Optional<String> datosBuscar,
 			+ "on r.genera_ram_id = rg.id_gener_ram_nom "
 			+ "LEFT Join GestionDeInventario.Ram_capacidad as rc "
 			+ "on r.capaci_ram_id = rc.id_ram_capac ");
-	VerificadorWhere(sql, tipoBusqueda, datosBuscar);
+	VerificadorWhere(sql, tipoBusqueda, datosBuscar, tipoSelec);
 	try (Connection con = MySQLDBConexion.getConexion();
 		PreparedStatement pstm = con.prepareStatement(sql.toString());
 			){
@@ -618,10 +619,13 @@ protected void Prepared(Optional<String> datosBuscar, Optional<String>tipoSelec,
 	}
 	
 }
-protected void VerificadorWhere(StringBuilder sql, String tipoBusqueda, Optional<String> datosBuscar) {
+protected void VerificadorWhere(StringBuilder sql, String tipoBusqueda, Optional<String> datosBuscar, Optional<String>tipoSelec) {
 	if(datosBuscar.isPresent())	{
-		sql.append("WHERE " + tipoBusqueda + " ? ");
+		switch (tipoSelec.get()) {
+		case "id" ->sql.append("WHERE " + tipoBusqueda + " = ? ");
+				
+		default ->sql.append("WHERE " + tipoBusqueda + " ? ");
+		}
 	}
-	sql.append("order By ID");
 }
 }
