@@ -8,6 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import entidad.Almacenamiento;
+import entidad.Disipador;
+import entidad.Fuente_de_Energia;
+import entidad.Grafica_amd;
+import entidad.Grafica_nvidia;
+import entidad.Perifericos;
+import entidad.PlacaBase;
+import entidad.ProcesadorAMD;
+import entidad.ProcesadorIntel;
+import entidad.Ram;
 import entidadDto.AlmacenamientoDto;
 import entidadDto.AmdGraficaDto;
 import entidadDto.AmdProcesadorDto;
@@ -21,6 +31,222 @@ import entidadDto.RamDto;
 import utils.MySQLDBConexion;
 
 public class ModelInventario {
+	public Ram SelecRam(Integer Codigo) {
+		Ram enti = null;
+		String sql = "SELECT * FROM Almacenamiento WHERE id_proce_intel = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql);
+				) {
+			pstm.setInt(1, Codigo);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				enti = new Ram();
+				enti.setId_ram(rs.getInt(1));
+				enti.setDescrip_ram(rs.getString(2));
+				enti.setCapaci_ram_id(rs.getInt(3));
+				enti.setGenera_ram_id(rs.getInt(3));
+				enti.setCate_id(rs.getInt(4));
+				enti.setPrecio_ram(rs.getInt(5));
+				enti.setStock_ram(rs.getInt(6));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return enti;
+	}
+	public ProcesadorIntel SelecProcesadorIntel(Integer Codigo) {
+		ProcesadorIntel enti = null;
+		String sql = "SELECT * FROM Almacenamiento WHERE id_proce_intel = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql);
+				) {
+			pstm.setInt(1, Codigo);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				enti = new ProcesadorIntel();
+				enti.setId_proce_intel(rs.getInt(1));
+				enti.setCategoria_id(rs.getInt(2));
+				enti.setGama_intel_id(rs.getInt(3));
+				enti.setGener_proce_intel_id(rs.getInt(4));
+				enti.setPrecio_proce_intel(rs.getInt(5));
+				enti.setStock_proc_intel(rs.getInt(6));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return enti;
+	}
+	public ProcesadorAMD SelecProcesadorAMD(Integer Codigo) {
+		ProcesadorAMD enti = null;
+		String sql = "SELECT * FROM Almacenamiento WHERE id_proce_AMD = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql);
+				) {
+			pstm.setInt(1, Codigo);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				enti = new ProcesadorAMD();
+				enti.setId_proce_AMD(rs.getInt(1));
+				enti.setCategoria_id(rs.getInt(2));
+				enti.setGama_AMD_id(rs.getInt(3));
+				enti.setGener_proce_AMD_id(rs.getInt(4));
+				enti.setPrecio_proce_AMD(rs.getInt(5));
+				enti.setStock_proce_amd(rs.getInt(6));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return enti;
+	}
+	public PlacaBase SelecPlacaBase(Integer Codigo) {
+		PlacaBase enti = null;
+		String sql = "SELECT * FROM Almacenamiento WHERE id_placa_base = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql);
+				) {
+			pstm.setInt(1, Codigo);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				enti = new PlacaBase();
+				enti.setId_placa_base(rs.getInt(1));
+				enti.setDescri_placa_base(rs.getString(2));
+				enti.setGene_ram_id(rs.getInt(3));
+				enti.setCate_id(rs.getInt(4));
+				enti.setPrecio_placa_base(rs.getInt(5));
+				enti.setStock_placa_base(rs.getInt(6));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return enti;
+	}
+	public Perifericos SelecPerifericos(Integer Codigo) {
+		Perifericos enti = null;
+		String sql = "SELECT * FROM Almacenamiento WHERE id_perifericos = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql);
+				) {
+			pstm.setInt(1, Codigo);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				enti = new Perifericos();
+				enti.setId_perifericos(rs.getInt(1));
+				enti.setDescripc_perifericos(rs.getString(2));
+				enti.setTipo_perifericos_id(rs.getInt(3));
+				enti.setPrecio_perifericos(rs.getInt(4));
+				enti.setCate_id(rs.getInt(5));
+				enti.setStock_perifericos(rs.getInt(6));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return enti;
+	}
+	public Grafica_nvidia SelecGraficaNvidia(Integer Codigo) {
+		Grafica_nvidia enti = null;
+		String sql = "SELECT * FROM Almacenamiento WHERE id_grafica_nvidia = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql);
+				) {
+			pstm.setInt(1, Codigo);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				enti = new Grafica_nvidia();
+				enti.setId_grafica_nvidia(rs.getInt(1));
+				enti.setDescripcion_grafi_nvidia(rs.getString(2));
+				enti.setGeneracion_grafi_nvidia_id(rs.getInt(3));
+				enti.setGama_grafi_nvidia_id(rs.getInt(4));
+				enti.setCate_id(rs.getInt(5));
+				enti.setPrecio_grafi_nvidia(rs.getInt(6));
+				enti.setStock_grafi_nvidia(rs.getInt(7));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return enti;
+	}
+	public Grafica_amd SelecGraficaAmd(Integer Codigo) {
+		Grafica_amd enti = null;
+		String sql = "SELECT * FROM Almacenamiento WHERE id_grafica_amd = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql);
+				) {
+			pstm.setInt(1, Codigo);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				enti = new Grafica_amd();
+				enti.setId_grafica_amd(rs.getInt(1));
+				enti.setDescripcion_grafi_amd(rs.getString(2));
+				enti.setGeneracion_grafi_amd_id(rs.getInt(3));
+				enti.setGama_grafi_amd_id(rs.getInt(4));
+				enti.setCate_id(rs.getInt(5));
+				enti.setPrecio_grafi_amd(rs.getInt(6));
+				enti.setStock_grafi_amd(rs.getInt(7));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return enti;
+	}
+	public Fuente_de_Energia SelecFuente(Integer Codigo) {
+		Fuente_de_Energia enti = null;
+		String sql = "SELECT * FROM Almacenamiento WHERE id_fuente = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql);
+				) {
+			pstm.setInt(1, Codigo);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				enti = new Fuente_de_Energia();
+				enti.setId_fuente(rs.getInt(1));
+				enti.setDescripcion_fuente(rs.getString(2));
+				enti.setCate_id(rs.getInt(3));
+				enti.setCapacidad_fuente_id(rs.getInt(4));
+				enti.setCertificado_fuente_id(rs.getInt(5));
+				enti.setPrecio_fuente(rs.getInt(6));
+				enti.setStock_fuente(rs.getInt(7));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return enti;
+	}
+	public Disipador SelecDisipador(Integer Codigo) {
+		Disipador enti = null;
+		String sql = "SELECT * FROM Almacenamiento WHERE id_disipador = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+				PreparedStatement pstm = con.prepareStatement(sql);
+				) {
+			pstm.setInt(1, Codigo);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				enti = new Disipador();
+				enti.setId_disipador(rs.getInt(1));
+				enti.setDescrip_disip(rs.getString(2));
+				enti.setCate_id(rs.getInt(3));
+				enti.setTipo_disip_id(rs.getInt(4));
+				enti.setPrecio_disipador(rs.getInt(5));
+				enti.setStock_disipador(rs.getInt(6));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return enti;
+	}
+	public Almacenamiento SelecAlmacenamiento(Integer Codigo) {
+		Almacenamiento alm = null;
+		String sql = "SELECT * FROM Almacenamiento WHERE id_almac = ?";
+		try (Connection con = MySQLDBConexion.getConexion();
+			 PreparedStatement pstm = con.prepareStatement(sql);
+			) {
+			pstm.setInt(1, Codigo);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				alm = new Almacenamiento();
+				alm.setId_almac(rs.getInt(1));
+				alm.setDescrip_almace(rs.getString(2));
+				alm.setCate_id(rs.getInt(3));
+				alm.setCapac_almac_id(rs.getInt(4));
+				alm.setTipo_almac_id(rs.getInt(5));
+				alm.setPrecio_almac(rs.getInt(6));
+				alm.setStock_almace(rs.getInt(7));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}return alm;
+	}
+	
 	public Integer Borrar(Integer idBorrar, String nomTabla, String tipoId) {
 		int borrar = -1;
 		String sql ="DELETE FROM " + nomTabla + " WHERE " + tipoId + " = ?";
