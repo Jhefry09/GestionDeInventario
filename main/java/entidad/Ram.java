@@ -1,8 +1,14 @@
 package entidad;
 
 public class Ram {
-	private Integer  id_ram, capaci_ram_id, genera_ram_id, cate_id, precio_ram;
+	private Integer  id_ram, capaci_ram_id, genera_ram_id, cate_id, precio_ram, stock_ram;
 	private String  descrip_ram;
+	public Integer getStock_ram() {
+		return stock_ram;
+	}
+	public void setStock_ram(Integer stock_ram) {
+		this.stock_ram = stock_ram;
+	}
 	public Integer getId_ram() {
 		return id_ram;
 	}
