@@ -1,3 +1,6 @@
+<%@page import="entidadDto.AlmacenamientoDto"%>
+<%@page import="java.util.List"%>
+<%@page import="entidad.Almacenamiento"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,6 +23,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%
+String nomTabla = (String) request.getAttribute("nomTa");
+switch (nomTabla){
+	case "Almacenamiento": {
+		List<AlmacenamientoDto> datos = (List<AlmacenamientoDto>) request.getAttribute("datos");
+		System.out.println("paso por aqui x2");
+	 
+		for (AlmacenamientoDto dat : datos) {
+		%>
+		
+			<label >#<%=dat.getId_almace_dto()%></label>
+				<label><%=dat.getDesc_almace_dto()%></label>
+				<label><%=dat.getCapacidad_almace_dto()%></label>
+				<label><%=dat.getUnidades_almace_dto()%></label>
+				<label><%=dat.getTipo_almace_dto()%></label>
+				<label>S/.<%=dat.getPrecio_almace_dto()%></label>
+				<label><%=dat.getStock_almace_dto()%></label>
+<%
+	break;
+	}}
+};
+%>
 </body>
 </html>

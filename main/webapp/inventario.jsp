@@ -111,13 +111,13 @@
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_almace_dto()%>">
-				<input type="hidden" name="NomTabla" value="GestionDeInventario.Almacenamiento">
+				<input type="hidden" name="NomTabla" value="Almacenamiento">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Almacenamiento">
-				<input type="hidden" name="codigo"value="<%=dat.getId_almace_dto()%>">
+				<input type="hidden" name="codigo" value="<%=dat.getId_almace_dto()%>">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
 				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<button class="btn btn-outline-light btn-lg" ><i class="bi bi-trash-fill"></i></button>
