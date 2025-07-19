@@ -47,16 +47,16 @@
 						class="form-select form-select-lg text-center fs-4 fw-bolder bg-dark text-light border-3"
 						onchange="document.getElementById('selector').submit();">
 						<option value="<%=seleccion%>"><%=nom%></option>
-						<option value="ALMACENAMIENTO">ALMACENAMIENTO</option>
-						<option value="DISIPADORES">DISIPADORES</option>
-						<option value="FUENTES">FUENTES DE ENERGIA</option>
-						<option value="Intel">PROCESADORES INTEL</option>
-						<option value="AmdPro">PROCESADORES AMD</option>
-						<option value="AmdGra">GRAFICAS AMD</option>
-						<option value="Nvidia">GRAFICAS NVIDIA</option>
-						<option value="PERIFERICOS">PERIFERICOS</option>
-						<option value="PlacaBase">PLACAS BASE</option>
-						<option value="RAM">RAM</option>
+						<option value="GestionDeInventario.Almacenamiento">ALMACENAMIENTO</option>
+						<option value="GestionDeInventario.Disipador">DISIPADORES</option>
+						<option value="GestionDeInventario.Fuente_de_Energia">FUENTES DE ENERGIA</option>
+						<option value="GestionDeInventario.ProcesadorIntel">PROCESADORES INTEL</option>
+						<option value="GestionDeInventario.ProcesadorAMD">PROCESADORES AMD</option>
+						<option value="GestionDeInventario.Grafica_amd">GRAFICAS AMD</option>
+						<option value="GestionDeInventario.Grafica_nvidia">GRAFICAS NVIDIA</option>
+						<option value="GestionDeInventario.Perifericos">PERIFERICOS</option>
+						<option value="GestionDeInventario.PlacaBase">PLACAS BASE</option>
+						<option value="GestionDeInventario.Ram">RAM</option>
 					</select>
 				</form>
 			</div>
@@ -79,7 +79,7 @@
 		<table class="table table-dark table-striped table-hover table-responsive table-bordered text-center  table-responsive">
 				<%
 				switch (seleccion){
-				case "ALMACENAMIENTO":{
+				case "GestionDeInventario.Almacenamiento":{
 				List<AlmacenamientoDto> datos = (List<AlmacenamientoDto>) request.getAttribute("datos");
 				if (datos != null) {
 				%>
@@ -111,12 +111,14 @@
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_almace_dto()%>">
-				<input type="hidden" name="NomTabla" value="Almacenamiento">
+				<input type="hidden" name="IdSelec" value="id_almac">
+				<input type="hidden" name="NomTabla" value="GestionDeInventario.Almacenamiento">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Almacenamiento">
+				<input type="hidden" name="IdSelec" value="id_almac">
 				<input type="hidden" name="codigo" value="<%=dat.getId_almace_dto()%>">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
 				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
@@ -129,7 +131,7 @@
 				}
 			break;
 				}
-				case "DISIPADORES":{
+				case "GestionDeInventario.Disipador":{
 				List<DisipadorDto> datos = (List<DisipadorDto>) request.getAttribute("datos");
 				if (datos != null) {
 				%>
@@ -140,7 +142,7 @@
 			<th scope="col">TIPO</th>
 			<th scope="col">PRECIO</th>
 			<th scope="col">STOCK</th>
-			<th scope="col">EDI</th>
+			<th scope="col">EDITAR</th>
 			</tr>
 		</thead>
 		<tbody class="text-center align-middle align-items-center table-bordered">		
@@ -157,11 +159,13 @@
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_disipador_tdo()%>">
+				<input type="hidden" name="IdSelec" value="id_disipador">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Disipador">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="IdSelec" value="id_disipador">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Disipador">
 				<input type="hidden" name="codigo"value="<%=dat.getId_disipador_tdo()%>">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
@@ -175,7 +179,7 @@
 				}
 			break;
 				}
-				case "FUENTES":{
+				case "GestionDeInventario.Fuente_de_Energia":{
 				List<FuenteDto> datos = (List<FuenteDto>) request.getAttribute("datos");
 				if (datos != null) {
 				%>
@@ -205,11 +209,13 @@
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_fuente()%>">
+				<input type="hidden" name="IdSelec" value="id_fuente">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Fuente_de_Energia">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="IdSelec" value="id_fuente">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Fuente_de_Energia">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_fuente()%>">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
@@ -223,7 +229,7 @@
 				}
 			break;
 				}
-				case "Intel":{
+				case "GestionDeInventario.ProcesadorIntel":{
 				List<IntelProcesadorDto> datos = (List<IntelProcesadorDto>) request.getAttribute("datos");
 				if (datos != null) {
 				%>
@@ -253,11 +259,13 @@
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_intel()%>">
+				<input type="hidden" name="IdSelec" value="id_proce_intel">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorIntel">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="IdSelec" value="id_proce_intel">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorIntel">
 				<input type="hidden" name="codigo"value="<%=dat.getId_intel()%>">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
@@ -271,7 +279,7 @@
 				}
 			break;
 				}
-				case "AmdPro":{
+				case "GestionDeInventario.ProcesadorAMD":{
 				List<AmdProcesadorDto> datos = (List<AmdProcesadorDto>) request.getAttribute("datos");
 				if (datos != null) {
 				%>
@@ -301,11 +309,13 @@
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_amd_procesador()%>">
+				<input type="hidden" name="IdSelec" value="id_proce_AMD">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorAMD">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="IdSelec" value="id_proce_AMD">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.ProcesadorAMD">
 				<input type="hidden" name="codigo"value="<%=dat.getId_amd_procesador()%>">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
@@ -319,7 +329,7 @@
 				}
 			break;
 				}
-				case "AmdGra":{
+				case "GestionDeInventario.Grafica_amd":{
 				List<AmdGraficaDto> datos = (List<AmdGraficaDto>) request.getAttribute("datos");
 				if (datos != null) {
 				%>
@@ -348,12 +358,14 @@
 				<td class="gap-2 d-flex align-items-center justify-content-center" >
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
+				<input type="hidden" name="IdSelec" value="id_grafica_amd">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_amd_grafica()%>">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_amd">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="IdSelec" value="id_grafica_amd">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_amd">
 				<input type="hidden" name="codigo"value="<%=dat.getId_amd_grafica()%>">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
@@ -367,7 +379,7 @@
 				}
 			break;
 				}
-				case "Nvidia":{
+				case "GestionDeInventario.Grafica_nvidia":{
 				List<NvidiaGraficaDto> datos = (List<NvidiaGraficaDto>) request.getAttribute("datos");
 				if (datos != null) {
 				%>
@@ -397,11 +409,13 @@
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_nvidia">
+				<input type="hidden" name="IdSelec" value="id_grafica_nvidia">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_nvidia_grafica()%>">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="IdSelec" value="id_grafica_nvidia">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Grafica_nvidia">
 				<input type="hidden" name="codigo"value="<%=dat.getId_nvidia_grafica()%>">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
@@ -415,7 +429,7 @@
 				}
 			break;
 				}
-				case "PERIFERICOS":{
+				case "GestionDeInventario.Perifericos":{
 				List<PerifericosDto> datos = (List<PerifericosDto>) request.getAttribute("datos");
 				if (datos != null) {
 				%>
@@ -443,11 +457,13 @@
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Perifericos">
+				<input type="hidden" name="IdSelec" value="id_perifericos">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_perifericos()%>">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="IdSelec" value="id_perifericos">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Perifericos">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
 				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
@@ -461,7 +477,7 @@
 				}
 			break;
 				}
-				case "PlacaBase":{
+				case "GestionDeInventario.PlacaBase":{
 				List<PlacaBaseDto> datos = (List<PlacaBaseDto>) request.getAttribute("datos");
 				if (datos != null) {
 				%>
@@ -489,11 +505,13 @@
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_placa_base()%>">
+				<input type="hidden" name="IdSelec" value="id_placa_base">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.PlacaBase">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
+				<input type="hidden" name="IdSelec" value="id_placa_base">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.PlacaBase">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
 				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
@@ -507,7 +525,7 @@
 				}
 			break;
 				}
-				case "RAM":{
+				case "GestionDeInventario.Ram":{
 				List<RamDto> datos = (List<RamDto>) request.getAttribute("datos");
 				if (datos != null) {
 				%>
@@ -537,12 +555,14 @@
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnEditar">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Ram">
+				<input type="hidden" name="IdSelec" value="id_ram">
 				<input type="hidden" name="idEditar" value="<%=dat.getId_ram()%>">
 				<button class="btn btn-outline-light btn-lg"><i class="bi bi-pencil-square"></i></button>
 				</form>
 				<form action="ServletInventario">
 				<input type="hidden" name="seleccion" value="BtnBorrar">
 				<input type="hidden" name="NomTabla" value="GestionDeInventario.Ram">
+				<input type="hidden" name="IdSelec" value="id_ram">
 				<input type="hidden" name="inventario" value="<%=seleccion%>">
 				<input type="hidden" name="inventario" value="<%=tipoSelec%>">
 				<input type="hidden" name="codigo" value="<%=dat.getId_ram()%>">
