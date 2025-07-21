@@ -53,6 +53,9 @@ public class ServletInventario extends HttpServlet {
 		
 	}
 	protected void Edicion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
+		
 		
 	}
 	protected void BtnEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
